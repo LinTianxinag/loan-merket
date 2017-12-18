@@ -1,0 +1,358 @@
+
+<!DOCTYPE html>
+<!-- saved from url=(0026)https://www.juhe.cn/myData -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>贷款超市－数据中心</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link rel="stylesheet" type="text/css" href="../css/reset.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/ucenter.css">
+    <link rel="stylesheet" type="text/css" href="../css/respond.css">
+    <link rel="stylesheet" media="all" type="text/css" href="../css/jquery-ui-1.10.4.custom.min.css" />
+    <link rel="stylesheet" media="all" type="text/css" href="../css/jquery-ui-timepicker-addon.css" />
+    <link rel="stylesheet" href="../css/layer.css" id="layui_layer_skinlayercss" style=""></head>
+<body>
+
+<header class="clearfix">
+    <a href="#" class="centerLogo" target="_blank" style="position:relative;"><img style="position:relative; left:-5px;"  alt="贷款超市管理平台"></a>
+    <div class="centerSearch">
+        <input class="searchText" name="q" type="text" placeholder="搜索">
+        <button id="searchBtn" type="button" class="searchBtn centerIcon"></button>
+    </div>
+    <ul class="headerUl clearfix">
+        <li class="headerLi1">
+            <div class="headerInfo"><span>${user.mobile}</span><i class="headerIcon1 centerIcon"></i></div>
+            <a class="centerLogout" href="javascript:logout();">退出登录</a>
+        </li>
+        <li>
+            <a class="headerContact" href="#" target="_blank">联系我们</a>
+        </li>
+    </ul>
+</header>
+
+
+<!-- main start -->
+<div id="ucenterWrapper" class="ucenterWidth1 clearfix">
+    <nav>
+        <ul class="ucenterNav">
+            <li class="navIndex ">
+                <div class="navDiv">
+                    <a href="#"><i class="iconfont"></i>管理中心</a>
+                </div>
+            </li>
+            <li class="">
+                <div class="navDiv">
+                    <a href="#"><i class="iconfont"></i>平台总览</a>
+                </div>
+            </li>
+            <li class="">
+                <div class="navDiv">
+                    <a href="/userlist"><i class="iconfont"></i>用户列表</a>
+                </div>
+            </li>
+            <li class="navInfoLi">
+                <span class="ucenterParent"><i class="iconfont"></i>数据中心<i class="centerIcon subDown"></i></span>
+                <ul class="ucenterSub" style="display: none;">
+                    <li class=""><a href="/addplat"><i class="iconfont"></i>平台新增</a></li>
+                    <li class=""><a href="#"><i class="iconfont"></i>我的收藏</a></li>
+                </ul>
+            </li>
+            <li class="navInfoLi">
+                <span id="ucenterSubA" class="ucenterParent"><i class="iconfont"></i>用户中心<i class="centerIcon subDown"></i></span>
+                <ul class="ucenterSub">
+                    <li class=""><a href="/admincenter"><i class="iconfont"></i>管理员列表</a></li>
+                    <li class=""><a href="#"><i class="iconfont"></i>密码修改</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- main content start -->
+    <section id="ucenterSection">
+        <ul class="purchaseTabUl clearfix newWorkTab">
+            <li class="active">
+                <a href="#">全部数据</a>
+            </li>
+            <li class="">
+                <a href="#">已上架 (0)</a>
+            </li>
+            <li class="">
+                <a href="#">已下架 (0)</a>
+            </li>
+        </ul>
+        <div>
+            <div id="seek1512371123288" class="search" style="clear:both">
+                关键字：<input type="text" placeholder="ID、平台名搜索" tar="name" class="w300 gray-small" venter="button[name=seek]">
+                申请时间：
+                <input type="text" id="startTime" name="starttime"placeholder="开始时间" class="laydate-icon inputText"   style="background:url(../images/b_calendar.png) right center no-repeat #FFF; color:#333; border:1px solid #f2f2f2">
+                <input type="text" id="endTime" name="endtime" placeholder="结束时间" class="laydate-icon inputText"   style="background:url(../images/b_calendar.png) right center no-repeat #FFF; color:#333; border:1px solid #f2f2f2">
+                申请结果：<select id="isreal" name="isreal" tar="isreal">
+                <option value="">请选择</option>
+                <option value="1">已上架</option>
+                <option value="0">已下架</option>
+            </select>
+                <button class="addSomeBtn addBtnFora" name="seek" class="find">查询</button>
+                <a class="addSomeBtn addBtnFora" href="#"><i class="iconfont"></i>申请新数据&nbsp;</a>
+            </div>
+        </div>
+        <table class="nantable" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+            <tr class="nanTableTh">
+                <th width="10%">ID</th>
+                <th width="10%">平台名称</th>
+                <th width="10%">利率</th>
+                <th width="10%">浏览人数</th>
+                <th width="10%">首页展示</th>
+                <th width="10%">位置</th>
+                <th width="10%">上架时间</th>
+                <th width="10%">上架状态</th>
+                <th width="20%">操作</th>
+            </tr>
+            </tbody>
+        </table>
+        <table class="ucenterTableSub" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+            <tr>
+                <td width="10%">2150</td>
+                <td width="10%">阳光贷</td>
+                <td width="10%">日/0.25%</td>
+                <td width="10%">1000人</td>
+                <td width="10%">是</td>
+                <td width="10%">无优先</td>
+                <td width="10%">2017-12-05</td>
+                <td width="10%">已下架</td>
+                <td width="20%" class="setDataTd">
+                    <a class="setDataTda1" target="_blank" href="#">
+                        <i class="centerIcon">&nbsp;</i>
+                        编辑
+                    </a>
+                    <!--短信发送时,显示模板-->
+                    <a class="setDataTda3" href="#" title="管理短信模板">
+                        <i class="centerIcon">&nbsp;</i>
+                        下架
+                    </a>
+                    <a class="setDataTda4 ajax-check-login" href="javascript:;" data="#" title="短信API服务预警设置">
+                        <i class="centerIcon">&nbsp;</i>
+                        查看
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+    </section>
+    <!-- main content end -->
+</div>
+
+
+
+
+<script src="../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/ucenterPublic.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/layer.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/json.parse.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery.form.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/nslog.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="../js/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript" src="../js/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="../js/jquery-ui-timepicker-zh-CN.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        //ucenter 统一使用的提交方式:ajaxsubmit,所以当用户登录失效的时候无法跳转到指定页面,
+        //添加下面对button 按钮的监视,如果为失效继续下面动作,如果点击按钮的时候登录失效了,就跳转到指定页面,如登录页面
+        $('.ajax-check-login,button,input:button').click(function(event){
+            var login = true;
+            $.getJSON('/login/loginStatus',function(obj){
+                if(obj.code=='-1')
+                {
+                    if(self == top){
+                        window.location.href = obj.acturl;
+                    }else{
+                        parent.window.location.reload();
+                    }
+
+                    login = false;
+                }
+            })
+
+            if(!login)
+            {
+                event.stopImmediatePropagation();
+            }
+        })
+
+    })
+    // 退出登录
+    function logout(){
+        $.post("/logout",function(dta){
+            if(dta){
+                var result = JSON.parse(dta);
+                if(result.status == 200){
+                    window.location.href = "/index";
+                }
+            }
+        })
+
+    }
+
+    $("input[name=q]").focus(function(){
+        document.onkeydown = function(e){
+            var ev = document.all ? window.event : e;
+            if(ev.keyCode==13) {
+                $("#searchBtn").click();
+            }
+        }
+    })
+
+    // header里的搜索框
+    $("#searchBtn").click(function(){
+        var q = $("input[name=q]").val();
+        q=q.replace(/\//g,'');
+
+        if(q.length==''){
+            $("input[name=q]").focus();
+            return false;
+        }
+
+        var searchUrl = '/docs/s/q/%40q%40';
+        searchUrl=searchUrl.replace(/%40q%40/,encodeURIComponent(q));
+        window.location.href=searchUrl;
+    })
+
+    $(document).ready(function(){
+
+        $("input[name=q]").focus(function(){
+            document.onkeydown = function(e){
+                var ev = document.all ? window.event : e;
+                if(ev.keyCode==13) {
+                    $("#searchBtn").click();
+                }
+            }
+        })
+    })
+
+    function isMobile(mobile){
+        var mreg =/^1[3|5|8|4|7]{1}[0-9]{1}[0-9]{8}$/;
+        if(!mreg.test(mobile)){
+            return false;
+        }
+        return true;
+    }
+
+    $('a[href="http://crm2.qq.com/page/portalpage/wpa.php?uin=800076065&f=1&ty=1&aty=0&a=&from=6"]').bind('click',function(){
+        nslog(1121);
+    });
+</script>
+
+<style type="text/css">.layui-layer-tips .layui-layer-content{color: #666}</style>
+<script type="text/javascript">
+    $(function(){
+        //已申请数据检索
+        $('.subKWBtn').click(function(){
+            $('#dataSearchE').hide()
+            var kw = $.trim($('#titleKW').val());
+            kw= kw.replace(/\//g,'').replace(/^\.+/g,'');
+            var rule = /^[\u4E00-\u9FA5\uF900-\uFA2Da-z0-9\.]+$/i
+
+            if(kw.length <=0){
+                location.href = '/myData/index';
+            }else{
+                if(kw.length > 0 && !rule.test(kw)){
+                    $('#dataSearchE').show().children('em').html('仅限中文/字母/数字/"."检索');
+                    return false;
+                }
+                location.href = '/myData/index/titleKW/'+kw;
+            }
+        })
+        // 预警按钮
+        $('.setDataTda4').click(function(){
+            if($(this).attr('data') == '') return false;
+            layer.open({
+                type: 2,
+                title: [$(this).attr('title'),'font-size:16px;color:#606060'],
+                btn:false,
+                shadeClose: true,
+                border: [2,0.5,'#ccc'],
+                scrollbar:false,
+                shade: 0.5,
+                area: ['542px', '348px'],
+                content: $(this).attr('data')
+            });
+        })
+
+        //wargin tips
+        $('.setDataTda5').mousemove(function(){
+            $(this).find('.orderTips2').fadeIn();
+        }).mouseout(function(){
+            $(this).find('.orderTips2').stop(true).hide();
+        });
+        //分页跳转
+        $('.goPageInput').keydown(function(e){
+            if(e.keyCode == 13)
+            {
+                goPage('.goPageInput')
+            }
+        })
+        $('#okSearch').click(function(){
+            goPage('.goPageInput');
+        })
+
+        /* 这里是计划更新剩余次数*/
+        var jsurplus = '61c2758c935bbe7022f13eed77b1eb86,b39185997baf6f29763c864eaa63717e,77cead9c81b85471867371d033ad1b09,f1d19fb536ca84454d9583bc07d669ac';
+        if(jsurplus!='')
+        {
+            setTimeout(function () {
+                if (jsurplus) {
+                    $.post('/myData/getjsurplus', {jsurplus: jsurplus}, function (e) {
+                        if (e != 'Forbidden') {
+                            var obj = json_parse(e);
+                            var data = obj.result;
+                            for (i in data) {
+                                if (data[i]['surplus'] == '-99') {
+                                    data[i]['surplus'] = '不限次数至&nbsp;' + data[i]['surexpired'];
+                                    $("#giftimg_" + data[i]['appkey']).remove();
+                                }
+                                $("#surplus_" + data[i]['appkey']).html(data[i]['surplus']);
+                            }
+                        }
+                    })
+                }
+            }, 500);
+        }
+
+        //table vertify
+        $('.certifyDiv').mouseenter(function () {
+            $('.dataCertifyTips').show();
+        }).mouseleave(function () {
+            $('.dataCertifyTips').hide();
+        });
+
+    });
+    function goPage(selected)
+    {
+        var num = $(selected).val();
+        var max = $(selected).attr('max');
+        if(isNaN(num))
+        {
+            alert('请输入数字!');
+            $(selected).val(1);//如果输入的不是数字,则默认为1
+            return false;
+        }
+
+        if((num-max)>0)
+        {
+            num = max;
+        }
+        if(num<1)
+        {
+            num = 1;
+        }
+        location.href = $(selected).attr('action')+num;
+    }
+</script>
+
+
+</body></html>

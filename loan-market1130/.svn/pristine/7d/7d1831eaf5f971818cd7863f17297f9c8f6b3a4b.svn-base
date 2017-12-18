@@ -1,0 +1,29 @@
+package com.fuhui.service;
+
+import com.fuhui.mybatis.sys.model.SysUser;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/**
+ * @author : xufanglong
+ * @Description:
+ * @Date: create in 16:22 2017/12/2
+ * @Modified By:
+ */
+public interface ManLoginService {
+
+    /**
+     * 检查登录
+     * @param sysUser
+     * @return
+     */
+    SysUser checkAdmin(SysUser sysUser);
+
+    /**
+     * 多条件查询用户
+     * @param sysUser
+     * @return
+     */
+    List<SysUser> getAdminList(SysUser sysUser);
+}

@@ -1,0 +1,20 @@
+package com.fuhui.service;
+
+import com.fuhui.mybatis.dto.SendSmsDto;
+
+/**
+ * @author : xufanglong
+ * @Description:
+ * @Date: create in 13:05 2017/12/1
+ * @Modified By:
+ */
+public interface SmsService {
+
+    String woDongSend(SendSmsDto sendSmsDto);
+
+    boolean requestVerification(SendSmsDto sendSmsDto);
+
+    String SendSms(String mobile,String validcode,int type);
+
+
+}

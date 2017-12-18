@@ -1,0 +1,109 @@
+package com.fuhui.controller;
+
+import com.fuhui.mybatis.sys.model.SysUser;
+import com.fuhui.service.ManLoginService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * @author : xufanglong
+ * @Description:后台管理的登录等功能写在此处
+ * @Date: create in 16:25 2017/11/30
+ * @Modified By:
+ */
+@Controller
+public class ManLoginController {
+    @Autowired
+    private ManLoginService loginService;
+
+    /**
+     * 后台管理的首页展示
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/index")
+    public ModelAndView ManageIndex(HttpServletRequest request, HttpServletResponse response){
+        ModelAndView model=new ModelAndView("index");
+        model.addObject("hello","111123123");
+        model.addObject("name","后台管理的页面");
+        return model;
+    }
+
+
+    /**
+     * 后台管理加载后的管理页面
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/home")
+    public ModelAndView ManageHome(HttpServletRequest request,HttpServletResponse response){
+        ModelAndView modelAndView=new ModelAndView("home");
+        return modelAndView;
+    }
+
+
+    /**
+     * 用户的列表的展示页面
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/userlist")
+    public ModelAndView ManangeUserList(HttpServletRequest request,HttpServletResponse response){
+        ModelAndView modelAndView=new ModelAndView("userlist");
+        return modelAndView;
+    }
+
+
+    /**
+     * 平台新增的页面
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/addplat")
+    public ModelAndView ManagePlatformAdd(HttpServletRequest request,HttpServletResponse response){
+        ModelAndView modelAndView=new ModelAndView("platformadd");
+        return modelAndView;
+
+    }
+
+    @RequestMapping("/admincenter")
+    public ModelAndView ManageaAminCenter(HttpServletRequest request,HttpServletResponse response){
+        ModelAndView modelAndView=new ModelAndView("admincenter");
+        return modelAndView;
+
+    }
+
+
+
+
+
+
+    /**
+     * 后台管理的登陆
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/login")
+    public ModelAndView ManageLogin(HttpServletRequest request, HttpServletResponse response, SysUser sysUser){
+        ModelAndView model=new ModelAndView();
+        SysUser user = loginService.checkAdmin(sysUser);
+        if(user != null){
+            model.addObject("user",user);
+            model.setViewName("");      //进入后台主页
+        }else{
+            model.setViewName("index");
+        }
+        return model;
+
+    }
+}

@@ -1,0 +1,688 @@
+
+<!DOCTYPE html>
+<!-- saved from url=(0026)https://www.juhe.cn/myData -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>贷款超市－数据中心</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link rel="stylesheet" type="text/css" href="../css/reset.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/ucenter.css">
+    <link rel="stylesheet" type="text/css" href="../css/respond.css">
+    <link rel="stylesheet" media="all" type="text/css" href="../css/jquery-ui-1.10.4.custom.min.css" />
+    <link rel="stylesheet" media="all" type="text/css" href="../css/jquery-ui-timepicker-addon.css" />
+    <link rel="stylesheet" href="../css/layer.css" id="layui_layer_skinlayercss" style=""></head>
+<body>
+
+<header class="clearfix">
+    <a href="#" class="centerLogo" target="_blank" style="position:relative;"><img style="position:relative; left:-5px;"  alt="贷款超市管理平台"></a>
+    <div class="centerSearch">
+        <input class="searchText" name="q" type="text" placeholder="搜索">
+        <button id="searchBtn" type="button" class="searchBtn centerIcon"></button>
+    </div>
+    <ul class="headerUl clearfix">
+        <li class="headerLi1">
+            <div class="headerInfo"><span>18069422113</span><i class="headerIcon1 centerIcon"></i></div>
+            <a class="centerLogout" href="javascript:logout();">退出登录</a>
+        </li>
+        <li>
+            <a class="headerContact" href="#" target="_blank">联系我们</a>
+        </li>
+    </ul>
+    <style type="text/css">
+        *{
+            margin:0;
+            padding:0;
+        }
+        dl,dt,dd,ul,li{
+            list-style:none;
+        }
+        a{
+            text-decoration: none;
+        }
+        img{
+            border:0;
+        }
+
+        #jiekubox{
+            width:100%;
+            box-sizing:border-box;
+            padding-left:300px;
+            padding-top:100px;
+        }
+        .jiekutop{
+            padding-bottom:48px;
+        }
+        .jiekutop h2{
+            width:100%;
+            height:50px;
+            line-height:50px;
+            color:#000;
+            font-size:20px;
+            font-weight:bold;
+        }
+        .jiekutop_cont{
+            width:100%;
+            box-sizing:border-box;
+            padding-left:30px;
+        }
+        .jiekutopCont1{
+            width:100%;
+            height:30px;
+            overflow:hidden;
+        }
+        .jiekutopCont1_left{
+            width:121px;
+            height:30px;
+            line-height:30px;
+            float:left;
+            font-size:15px;
+            color:#333;
+        }
+        .jiekutopCont1_right{
+            width:400px;
+            height:30px;
+            line-height:30px;
+            float:left;
+            font-size:15px;
+            color:#333;
+        }
+
+        .jiekumiddle h2{
+            width:100%;
+            height:50px;
+            line-height:50px;
+            color:#000;
+            font-size:20px;
+            font-weight:bold;
+        }
+        .jiekumiddle_one{
+            width:750px;
+            box-sizing:border-box;
+            padding-left:30px;
+            height:70px;
+        }
+
+        .jiekumiddle_two{
+            width:750px;
+            height:145px;
+            box-sizing:border-box;
+            padding-left:30px;
+            overflow:hidden;
+        }
+        .jiekumiddle_oneleft{
+            width:120px;
+            height:145px;
+            line-height:32px;
+            font-size:15px;
+            color:#333;
+            float:left;
+            font-weight:bold;
+        }
+        .jiekumiddle_oneright{
+            width:580px;
+            height:142px;
+            line-height:20px;
+            font-size:15px;
+            color:#333;
+            float:left;
+        }
+
+        .jiekudown h2{
+            width:100%;
+            height:50px;
+            line-height:50px;
+            color:#000;
+            font-size:20px;
+            font-weight:bold;
+        }
+        .jiekudown_wrap{
+            width:100%;
+            box-sizing:border-box;
+            padding-left:30px;
+        }
+        .jiekudown1{
+            width:100%;
+            height:30px;
+            overflow:hidden;
+        }
+        .jiekud1_left{
+            width:122px;
+            height:30px;
+            line-height:30px;
+            font-size:15px;
+            font-weight:bold;
+            color:#333;
+            float:left;
+        }
+        .jiekud1_right{
+            width:600px;
+            height:30px;
+            line-height:30px;
+            font-size:15px;
+            color:#333;
+            float:left;
+        }
+        .jiekudown2{
+            width:100%;
+            height:30px;
+            overflow:hidden;
+        }
+        .jiekud2_left{
+            width:122px;
+            height:30px;
+            line-height:30px;
+            font-size:15px;
+            font-weight:bold;
+            color:#333;
+            float:left;
+        }
+        .jiekud2_right{
+            width:600px;
+            height:30px;
+            line-height:30px;
+            font-size:15px;
+            color:#333;
+            float:left;
+        }
+        .jiekudown3{
+            width:100%;
+            height:30px;
+            overflow:hidden;
+        }
+        .jiekud3_left{
+            width:122px;
+            height:30px;
+            line-height:30px;
+            font-size:15px;
+            font-weight:bold;
+            color:#333;
+            float:left;
+        }
+        .jiekud3_right{
+            width:600px;
+            height:30px;
+            line-height:30px;
+            font-size:15px;
+            color:#333;
+            float:left;
+        }
+        .jiekudown4{
+            width:100%;
+            height:30px;
+            overflow:hidden;
+        }
+        .jiekud4_left{
+            width:122px;
+            height:30px;
+            line-height:30px;
+            font-size:15px;
+            font-weight:bold;
+            color:#333;
+            float:left;
+        }
+        .jiekud4_right{
+            width:600px;
+            height:30px;
+            line-height:30px;
+            font-size:15px;
+            color:#333;
+            float:left;
+        }
+        .jiekudown5{
+            width:100%;
+            height:50px;
+            overflow:hidden;
+        }
+        .jiekud5_left{
+            width:122px;
+            height:30px;
+            line-height:30px;
+            font-size:15px;
+            font-weight:bold;
+            color:#333;
+            float:left;
+        }
+        .jiekud5_right{
+            width:600px;
+            height:50px;
+            line-height:20px;
+            font-size:15px;
+            color:#333;
+            float:left;
+        }
+        .jiekudown6{
+            width:100%;
+            box-sizing:border-box;
+            padding-left:122px;
+            height:40px;
+            padding-top:20px;
+        }
+        .jiekubtn{
+            width:140px;
+            height:40px;
+            line-height:40px;
+            text-align:center;
+            font-size:16px;
+            color:#fff;
+            border-radius:4px;
+            background:#169bd5;
+            border:0;
+            -webkit-appearance:none;
+            cursor: pointer;
+        }
+    </style>
+
+</header>
+
+<!-- main start -->
+<div id="ucenterWrapper" class="ucenterWidth1 clearfix">
+    <nav>
+        <ul class="ucenterNav">
+            <li class="navIndex ">
+                <div class="navDiv">
+                    <a href="#"><i class="iconfont"></i>管理中心</a>
+                </div>
+            </li>
+            <li class="">
+                <div class="navDiv">
+                    <a href="/home"><i class="iconfont"></i>平台总览</a>
+                </div>
+            </li>
+            <li class="">
+                <div class="navDiv">
+                    <a href="/userlist"><i class="iconfont"></i>用户列表</a>
+                </div>
+            </li>
+            <li class="navInfoLi">
+                <span class="ucenterParent"><i class="iconfont"></i>数据中心<i class="centerIcon subDown"></i></span>
+                <ul class="ucenterSub" style="display: none;">
+                    <li class=""><a href="/addplat"><i class="iconfont"></i>平台新增</a></li>
+                    <li class=""><a href="#"><i class="iconfont"></i>待添加</a></li>
+                </ul>
+            </li>
+            <li class="navInfoLi">
+                <span id="ucenterSubA" class="ucenterParent"><i class="iconfont"></i>用户中心<i class="centerIcon subDown"></i></span>
+                <ul class="ucenterSub">
+                    <li class=""><a href="/admincenter"><i class="iconfont"></i>管理员列表</a></li>
+                    <li class=""><a href="#"><i class="iconfont"></i>待添加</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- main content start -->
+    <body>
+    <div id="jiekubox">
+        <div class="jiekutop">
+            <h2>借款参数</h2>
+            <div class="jiekutop_cont">
+                <div class="jiekutopCont1">
+                    <div class="jiekutopCont1_left">平台名称</div>
+                    <div class="jiekutopCont1_right">
+                        <input type="text" />
+                    </div>
+                </div>
+                <div class="jiekutopCont1">
+                    <div class="jiekutopCont1_left">参考利率</div>
+                    <div class="jiekutopCont1_right">
+                        <select name="" id="">
+                            <option value="">日参考利率</option>
+                            <option value="">月参考利率</option>
+                        </select>
+                        <input type="text" /> %
+                    </div>
+                </div>
+                <div class="jiekutopCont1">
+                    <div class="jiekutopCont1_left">借款金额区间</div>
+                    <div class="jiekutopCont1_right">
+                        <input type="text" />
+                        <span>--</span>
+                        <input type="text" />
+                        <span>元</span>
+                    </div>
+                </div>
+                <div class="jiekutopCont1">
+                    <div class="jiekutopCont1_left">借款周期区间</div>
+                    <div class="jiekutopCont1_right">
+                        <input type="text" />
+                        <span>--</span>
+                        <input type="text" />
+                        <span>天</span>
+                    </div>
+                </div>
+                <div class="jiekutopCont1">
+                    <div class="jiekutopCont1_left">最快放款时间</div>
+                    <div class="jiekutopCont1_right">
+                        <select name="" id="">
+                            <option value="">按小时</option>
+                            <option value="">按分钟</option>
+                            <option value="">按秒</option>
+                        </select>
+                        <input type="text" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jiekumiddle">
+            <h2>所需材料</h2>
+            <div class="jiekumiddle_one">
+                <label for="idcard">
+                    <input type="checkbox" id="idcard"/>
+                    身份证
+                </label>
+                <label for="shouquan">
+                    <input type="checkbox" id="shouquan"/>
+                    运营商授权
+                </label>
+                <label for="bankcard">
+                    <input type="checkbox" id="bankcard"/>
+                    银行卡
+                </label>
+                <label for="xinyong">
+                    <input type="checkbox" id="xinyong"/>
+                    芝麻信用
+                </label>
+                <label for="xuexin">
+                    <input type="checkbox" id="xuexin"/>
+                    学信网授权
+                </label>
+                <label for="taobao">
+                    <input type="checkbox" id="taobao"/>
+                    淘宝授权
+                </label>
+                <label for="bankcard">
+                    <input type="checkbox" id="alipay"/>
+                    支付宝授权
+                </label>
+                <label for="qq">
+                    <input type="checkbox" id="qq"/>
+                    QQ授权
+                </label>
+
+            </div>
+            <div class="jiekumiddle_two">
+                <div class="jiekumiddle_oneleft">申请条件</div>
+                <div class="jiekumiddle_oneright">
+                    <textarea name="" id="" style="width:578px;height:140px;border:1px solid #333;text-align:left;"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="jiekudown">
+            <h2>前台展示</h2>
+            <div class="jiekudown_wrap">
+                <div class="jiekudown1">
+                    <div class="jiekud1_left">首页展示</div>
+                    <div class="jiekud1_right">
+                        <label for="yes">
+                            <input type="radio" name="itemone" id="yes"/>
+                            是
+                        </label>
+                        <label for="no">
+                            <input type="radio" name="itemone" id="no"/>
+                            否
+                        </label>
+                    </div>
+                </div>
+                <div class="jiekudown2">
+                    <div class="jiekud2_left">列表展示</div>
+                    <div class="jiekud2_right">
+                        <select name="" id="">
+                            <option value="">其他</option>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                            <option value="">4</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="jiekudown3">
+                    <div class="jiekud3_left">上架状态</div>
+                    <div class="jiekud3_right">
+                        <label for="yestwo">
+                            <input type="radio" name="itemtwo" id="yestwo" checked />
+                            已下架
+                        </label>
+                        <label for="notwo">
+                            <input type="radio" name="itemtwo" id="notwo"/>
+                            已上架
+                        </label>
+                    </div>
+                </div>
+                <div class="jiekudown4">
+                    <div class="jiekud4_left">标签显示</div>
+                    <div class="jiekud4_right">
+                        <label for="thr1">
+                            <input type="radio" name="itemthr" id="thr1" checked />
+                            新品
+                        </label>
+                        <label for="thr2">
+                            <input type="radio" name="itemthr" id="thr2"/>
+                            推荐
+                        </label>
+                        <label for="thr3">
+                            <input type="radio" name="itemthr" id="thr3"/>
+                            火热
+                        </label>
+                    </div>
+                </div>
+                <div class="jiekudown5">
+                    <div class="jiekud5_left">跳转连接</div>
+                    <div class="jiekud5_right">
+                        <textarea name="" id="" style="width:578px;height:48px;border:1px solid #333;text-align:left;"></textarea>
+                    </div>
+                </div>
+                <div class="jiekudown6">
+                    <input type="button"  class="jiekubtn" value="提交"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+    <!-- main content end -->
+</div>
+
+
+
+
+<script src="../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/ucenterPublic.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/layer.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/json.parse.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery.form.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/nslog.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="../js/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript" src="../js/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="../js/jquery-ui-timepicker-zh-CN.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        //ucenter 统一使用的提交方式:ajaxsubmit,所以当用户登录失效的时候无法跳转到指定页面,
+        //添加下面对button 按钮的监视,如果为失效继续下面动作,如果点击按钮的时候登录失效了,就跳转到指定页面,如登录页面
+        $('.ajax-check-login,button,input:button').click(function(event){
+            var login = true;
+            $.getJSON('/login/loginStatus',function(obj){
+                if(obj.code=='-1')
+                {
+                    if(self == top){
+                        window.location.href = obj.acturl;
+                    }else{
+                        parent.window.location.reload();
+                    }
+
+                    login = false;
+                }
+            })
+
+            if(!login)
+            {
+                event.stopImmediatePropagation();
+            }
+        })
+
+    })
+    // 退出登录
+    function logout(){
+        $.getJSON('/login/logout',function(obj){
+            window.location.href='/';
+        })
+    }
+
+    $("input[name=q]").focus(function(){
+        document.onkeydown = function(e){
+            var ev = document.all ? window.event : e;
+            if(ev.keyCode==13) {
+                $("#searchBtn").click();
+            }
+        }
+    })
+
+    // header里的搜索框
+    $("#searchBtn").click(function(){
+        var q = $("input[name=q]").val();
+        q=q.replace(/\//g,'');
+
+        if(q.length==''){
+            $("input[name=q]").focus();
+            return false;
+        }
+
+        var searchUrl = '/docs/s/q/%40q%40';
+        searchUrl=searchUrl.replace(/%40q%40/,encodeURIComponent(q));
+        window.location.href=searchUrl;
+    })
+
+    $(document).ready(function(){
+
+        $("input[name=q]").focus(function(){
+            document.onkeydown = function(e){
+                var ev = document.all ? window.event : e;
+                if(ev.keyCode==13) {
+                    $("#searchBtn").click();
+                }
+            }
+        })
+    })
+
+    function isMobile(mobile){
+        var mreg =/^1[3|5|8|4|7]{1}[0-9]{1}[0-9]{8}$/;
+        if(!mreg.test(mobile)){
+            return false;
+        }
+        return true;
+    }
+
+    $('a[href="http://crm2.qq.com/page/portalpage/wpa.php?uin=800076065&f=1&ty=1&aty=0&a=&from=6"]').bind('click',function(){
+        nslog(1121);
+    });
+</script>
+
+<style type="text/css">.layui-layer-tips .layui-layer-content{color: #666}</style>
+<script type="text/javascript">
+    $(function(){
+        //已申请数据检索
+        $('.subKWBtn').click(function(){
+            $('#dataSearchE').hide()
+            var kw = $.trim($('#titleKW').val());
+            kw= kw.replace(/\//g,'').replace(/^\.+/g,'');
+            var rule = /^[\u4E00-\u9FA5\uF900-\uFA2Da-z0-9\.]+$/i
+
+            if(kw.length <=0){
+                location.href = '/myData/index';
+            }else{
+                if(kw.length > 0 && !rule.test(kw)){
+                    $('#dataSearchE').show().children('em').html('仅限中文/字母/数字/"."检索');
+                    return false;
+                }
+                location.href = '/myData/index/titleKW/'+kw;
+            }
+        })
+        // 预警按钮
+        $('.setDataTda4').click(function(){
+            if($(this).attr('data') == '') return false;
+            layer.open({
+                type: 2,
+                title: [$(this).attr('title'),'font-size:16px;color:#606060'],
+                btn:false,
+                shadeClose: true,
+                border: [2,0.5,'#ccc'],
+                scrollbar:false,
+                shade: 0.5,
+                area: ['542px', '348px'],
+                content: $(this).attr('data')
+            });
+        })
+
+        //wargin tips
+        $('.setDataTda5').mousemove(function(){
+            $(this).find('.orderTips2').fadeIn();
+        }).mouseout(function(){
+            $(this).find('.orderTips2').stop(true).hide();
+        });
+        //分页跳转
+        $('.goPageInput').keydown(function(e){
+            if(e.keyCode == 13)
+            {
+                goPage('.goPageInput')
+            }
+        })
+        $('#okSearch').click(function(){
+            goPage('.goPageInput');
+        })
+
+        /* 这里是计划更新剩余次数*/
+        var jsurplus = '61c2758c935bbe7022f13eed77b1eb86,b39185997baf6f29763c864eaa63717e,77cead9c81b85471867371d033ad1b09,f1d19fb536ca84454d9583bc07d669ac';
+        if(jsurplus!='')
+        {
+            setTimeout(function () {
+                if (jsurplus) {
+                    $.post('/myData/getjsurplus', {jsurplus: jsurplus}, function (e) {
+                        if (e != 'Forbidden') {
+                            var obj = json_parse(e);
+                            var data = obj.result;
+                            for (i in data) {
+                                if (data[i]['surplus'] == '-99') {
+                                    data[i]['surplus'] = '不限次数至&nbsp;' + data[i]['surexpired'];
+                                    $("#giftimg_" + data[i]['appkey']).remove();
+                                }
+                                $("#surplus_" + data[i]['appkey']).html(data[i]['surplus']);
+                            }
+                        }
+                    })
+                }
+            }, 500);
+        }
+
+        //table vertify
+        $('.certifyDiv').mouseenter(function () {
+            $('.dataCertifyTips').show();
+        }).mouseleave(function () {
+            $('.dataCertifyTips').hide();
+        });
+
+    });
+    function goPage(selected)
+    {
+        var num = $(selected).val();
+        var max = $(selected).attr('max');
+        if(isNaN(num))
+        {
+            alert('请输入数字!');
+            $(selected).val(1);//如果输入的不是数字,则默认为1
+            return false;
+        }
+
+        if((num-max)>0)
+        {
+            num = max;
+        }
+        if(num<1)
+        {
+            num = 1;
+        }
+        location.href = $(selected).attr('action')+num;
+    }
+</script>
+
+
+</body></html>

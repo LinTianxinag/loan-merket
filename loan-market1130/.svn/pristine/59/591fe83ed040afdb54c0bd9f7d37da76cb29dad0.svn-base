@@ -1,0 +1,29 @@
+package com.fuhui.service;
+
+import com.fuhui.common.entity.QueryCondition;
+import com.fuhui.mybatis.generator.model.Platform;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.util.List;
+
+/**
+ *  平台操作（平台的添加及变更）
+ * Created by Ren
+ * time:2017/12/4.13:17
+ */
+public interface ManPlaService {
+
+    /**
+     * 获取平台列表
+     * @param req
+     * @param model
+     * @param queryCondition
+     * @return
+     * @throws ParseException
+     */
+    List<Platform> getPlaList(HttpServletRequest req, ModelAndView model, QueryCondition queryCondition) throws ParseException;
+
+
+}

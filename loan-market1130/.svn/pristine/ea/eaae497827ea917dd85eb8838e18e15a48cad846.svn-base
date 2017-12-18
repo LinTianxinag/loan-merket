@@ -1,0 +1,14 @@
+package com.fuhui.service;
+
+import com.fuhui.mybatis.generator.model.SysUser;
+
+/**
+ * Created by Ren
+ * time:2017/12/1.16:00
+ * 登录、注册、忘记密码
+ */
+public interface LoginService {
+
+    SysUser login(SysUser user);
+
+}

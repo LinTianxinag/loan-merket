@@ -1,0 +1,10 @@
+package com.fuhui.service;
+
+/**
+ * @author : xufanglong
+ * @Description:
+ * @Date: create in 13:05 2017/12/1
+ * @Modified By:
+ */
+public interface SmsService {
+}

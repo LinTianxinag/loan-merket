@@ -1,0 +1,9 @@
+package com.fuhui.mybatis.generator.dao;
+
+
+import com.fuhui.mybatis.generator.model.Account;
+
+public interface AccountMapper {
+
+    Account selectByPrimaryKey(Long id);
+}

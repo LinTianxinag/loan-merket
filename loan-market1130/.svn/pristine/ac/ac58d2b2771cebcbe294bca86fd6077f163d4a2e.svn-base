@@ -1,0 +1,350 @@
+package com.fuhui.service.impl;
+
+import com.fuhui.common.entity.QueryCondition;
+import com.fuhui.common.util.Constants;
+import com.fuhui.common.util.MD5;
+import com.fuhui.common.util.RedisUtil;
+import com.fuhui.common.util.StringUtils;
+import com.fuhui.mybatis.generator.dao.FhUserMapper;
+import com.fuhui.mybatis.generator.dao.User_Browsing_HistoryMapper;
+import com.fuhui.mybatis.generator.model.FhUser;
+import com.fuhui.mybatis.generator.model.PlatformBrowsingHistory;
+import com.fuhui.mybatis.generator.model.User_Browsing_History;
+import com.fuhui.mybatis.sys.dao.SysUserMapper;
+import com.fuhui.mybatis.sys.model.SysUser;
+import com.fuhui.service.ManUserService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
+
+/**
+ * 用户信息业务操作实现类
+ * Created by Ren
+ * time:2017/12/4.13:18
+ */
+@Service
+public class ManUserServiceImpl implements ManUserService {
+    @Autowired
+    private FhUserMapper fhUserMapper;
+    @Autowired
+    private SysUserMapper sysUserMapper;
+    @Autowired
+    private User_Browsing_HistoryMapper UBHMapper;
+
+    /**
+     * 获取用户列表
+     * @param req
+     * @param model
+     * @param qc
+     * @return List<FhUser>
+     */
+    @Override
+    public List<FhUser> getFhUserList(HttpServletRequest req, ModelAndView model, QueryCondition qc) throws ParseException {
+        Integer pageno = req.getParameter("pageno") != null ? Integer.parseInt(req.getParameter("pageno")) : 1;
+        Integer pagesize = req.getParameter("size") != null ? Integer.parseInt(req.getParameter("size")) : 10;
+        String keyword = req.getParameter("keyword");
+        String startTime = req.getParameter("starttime");
+        String endTime = req.getParameter("endtime");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        String adminMobile = RedisUtil.get(Constants.ADMIN_MOBILE + req.getSession().getId());
+
+        if(keyword != null && !keyword.equals("")){
+            qc.setName(keyword);
+            qc.setIdcard(keyword);
+            qc.setMobile(keyword);
+            if(keyword.length() < 9 && Pattern.matches("\\d*",keyword)){
+                qc.setID(Integer.parseInt(keyword));
+            }else{
+                qc.setID(0);
+            }
+        }
+        if(startTime == null || endTime == null || startTime.equals("") || endTime.equals("")){
+            qc.setStartTime(null);
+            qc.setEndTime(null);
+        }else{
+            qc.setStartTime(sdf.parse(startTime));
+            qc.setEndTime(sdf.parse(endTime));
+        }
+        /** 查询今天注册的用户 */
+        if(qc.getIsQueryToday() != null && qc.getIsQueryToday().equals(1)){
+            qc.setStartTime(sdf.parse(DateFormatUtils.format(new Date(), "yyyy-MM-dd 00:00:00")));
+            qc.setEndTime(sdf.parse(DateFormatUtils.format(new Date(), "yyyy-MM-dd 23:59:59")));
+        }
+        /** 查询昨天注册的用户 */
+        else if(qc.getIsQueryYesterday() != null &&qc.getIsQueryYesterday().equals(1)){
+            Date yesterday = new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000);
+            qc.setStartTime(sdf.parse(DateFormatUtils.format(yesterday, "yyyy-MM-dd 00:00:00")));
+            qc.setEndTime(sdf.parse(DateFormatUtils.format(yesterday, "yyyy-MM-dd 23:59:59")));
+        }
+        PageHelper.startPage(pageno, pagesize);
+        List<FhUser> list = fhUserMapper.selectFhUserList(qc);
+        PageInfo page = new PageInfo(list);
+
+
+        model.addObject("list",list);
+        model.addObject("adminmobile",adminMobile);
+//        前端paging需要一定格式的返回数据
+        model.addObject("err","");
+        model.addObject("errcode",0);
+        model.addObject("size",pagesize);
+        model.addObject("total",(int)Math.ceil((double) page.getTotal()/pagesize));
+        model.addObject("currentPage",pageno);
+
+
+        return null;
+    }
+
+    @Override
+    public Map getFhUserListPager(HttpServletRequest req, QueryCondition qc) throws ParseException {
+        Integer pageno = req.getParameter("pageno") != null ? Integer.parseInt(req.getParameter("pageno")) : 1;
+        Integer pagesize = req.getParameter("size") != null ? Integer.parseInt(req.getParameter("size")) : 10;
+        String keyword = req.getParameter("keyword");
+        String startTime = req.getParameter("starttime");
+        String endTime = req.getParameter("endtime");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        String adminMobile = RedisUtil.get(Constants.ADMIN_MOBILE + req.getSession().getId());
+        HashMap hashMap = new HashMap();
+
+        if(keyword != null && !keyword.equals("")){
+            qc.setName(keyword);
+            qc.setIdcard(keyword);
+            qc.setMobile(keyword);
+            if(keyword.length() < 9 && Pattern.matches("\\d*",keyword)){
+                qc.setID(Integer.parseInt(keyword));
+            }else{
+                qc.setID(0);
+            }
+        }
+        if(startTime == null || endTime == null || startTime.equals("") || endTime.equals("")){
+            qc.setStartTime(null);
+            qc.setEndTime(null);
+        }else{
+            qc.setStartTime(sdf.parse(startTime));
+            qc.setEndTime(sdf.parse(endTime));
+        }
+        /** 查询今天注册的用户 */
+        if(qc.getIsQueryToday() != null && qc.getIsQueryToday().equals(1)){
+            qc.setStartTime(sdf.parse(DateFormatUtils.format(new Date(), "yyyy-MM-dd 00:00:00")));
+            qc.setEndTime(sdf.parse(DateFormatUtils.format(new Date(), "yyyy-MM-dd 23:59:59")));
+        }
+        /** 查询昨天注册的用户 */
+        else if(qc.getIsQueryYesterday() != null &&qc.getIsQueryYesterday().equals(1)){
+            Date yesterday = new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000);
+            qc.setStartTime(sdf.parse(DateFormatUtils.format(yesterday, "yyyy-MM-dd 00:00:00")));
+            qc.setEndTime(sdf.parse(DateFormatUtils.format(yesterday, "yyyy-MM-dd 23:59:59")));
+        }
+        PageHelper.startPage(pageno, pagesize);
+        List<FhUser> list = fhUserMapper.selectFhUserList(qc);
+        PageInfo page = new PageInfo(list);
+
+
+        hashMap.put("list",list);
+        hashMap.put("adminmobile",adminMobile);
+//        前端paging需要一定格式的返回数据
+        hashMap.put("err","");
+        hashMap.put("errcode",0);
+        hashMap.put("size",pagesize);
+        hashMap.put("total",(int)Math.ceil((double) page.getTotal()/pagesize));
+        hashMap.put("currentPage",pageno);
+
+
+        return hashMap;
+    }
+
+    /**
+     * 获取管理元的初始列表和页面
+     * @param req
+     * @param model
+     * @param qc
+     * @return
+     * @throws ParseException
+     */
+    @Override
+    public List<FhUser> getFhSysUserList(HttpServletRequest req, ModelAndView model, QueryCondition qc) throws ParseException {
+        Integer pageno = req.getParameter("pageno") != null ? Integer.parseInt(req.getParameter("pageno")) : 1;
+        Integer pagesize = req.getParameter("size") != null ? Integer.parseInt(req.getParameter("size")) : 10;
+        PageHelper.startPage(pageno, pagesize);
+        List<SysUser> list = sysUserMapper.selectFhSysUserList(qc);
+        PageInfo page = new PageInfo(list);
+
+
+        model.addObject("list",list);
+//        前端paging需要一定格式的返回数据
+        model.addObject("err","");
+        model.addObject("errcode",0);
+        model.addObject("size",pagesize);
+        model.addObject("total",(int)Math.ceil((double) page.getTotal()/pagesize));
+        model.addObject("currentPage",pageno);
+
+
+        return null;
+    }
+
+    /**
+     * 获取管理人员的分页数据
+     * @param req
+     * @param qc
+     * @return
+     * @throws ParseException
+     */
+    @Override
+    public Map getFhSysUserListPager(HttpServletRequest req, QueryCondition qc) throws ParseException {
+        Integer pageno = req.getParameter("pageno") != null ? Integer.parseInt(req.getParameter("pageno")) : 1;
+        Integer pagesize = req.getParameter("size") != null ? Integer.parseInt(req.getParameter("size")) : 2;//        String keyword = req.getParameter("keyword");
+        String keyword = req.getParameter("keyword");
+        String startTime = req.getParameter("starttime");
+        String endTime = req.getParameter("endtime");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        String adminMobile = RedisUtil.get(Constants.ADMIN_MOBILE + req.getSession().getId());
+        Map hashMap = new HashMap();
+        if(keyword != null && !keyword.equals("")){
+            qc.setName(keyword);//对饮数据库的真实名字
+            qc.setLoginName(keyword);
+            qc.setJob(keyword);
+            qc.setMobile(keyword);
+            if(keyword.length() < 9 && Pattern.matches("\\d*",keyword)){
+                qc.setID(Integer.parseInt(keyword));
+            }else{
+                qc.setID(0);
+            }
+        }
+//        if(startTime == null || endTime == null || startTime.equals("") || endTime.equals("")){
+//            qc.setStartTime(null);
+//            qc.setEndTime(null);
+//        }else{
+//            qc.setStartTime(sdf.parse(startTime));
+//            qc.setEndTime(sdf.parse(endTime));
+//        }
+        PageHelper.startPage(pageno, pagesize);
+        List<SysUser> list = sysUserMapper.selectFhSysUserList(qc);
+        PageInfo page = new PageInfo(list);
+
+
+        hashMap.put("list",list);
+        hashMap.put("adminmobile",adminMobile);
+//        前端paging需要一定格式的返回数据
+        hashMap.put("err","");
+        hashMap.put("errcode",0);
+        hashMap.put("size",pagesize);
+        hashMap.put("total",(int)Math.ceil((double) page.getTotal()/pagesize));
+        hashMap.put("currentPage",pageno);
+
+
+        return hashMap;
+    }
+
+    /**
+     * 编辑管理人员的可用状态
+     * @param req
+     * @param qc
+     * @return
+     * @throws ParseException
+     */
+    @Override
+    public Map editSysUser(HttpServletRequest req, QueryCondition qc) throws ParseException {
+        Map hashmap = new HashMap();
+        if(req.getParameter("id")==null||qc.getUserStatus()==null){
+            hashmap.put("result","0");
+            return hashmap;
+        }
+        int id = Integer.valueOf(req.getParameter("id"));
+        if(qc.getUserStatus()==0) {
+            qc.setUserStatus(Byte.valueOf("1"));
+        }
+        else {
+            qc.setUserStatus(Byte.valueOf("0"));
+        }
+        SysUser sysUser = new SysUser();
+        sysUser.setUserId(id);
+        sysUser.setUserStatus(qc.getUserStatus());
+        sysUserMapper.updateByPrimaryKeySelective(sysUser);
+        hashmap.put("status","1");
+        return hashmap;
+    }
+
+
+    /**
+     * 用户浏览详情
+     * @param req
+     * @param model
+     * @param qc
+     * @return
+     * @throws ParseException
+     */
+    @Override
+    public List<PlatformBrowsingHistory> getFhUserBrowseDetailsList(HttpServletRequest req, ModelAndView model, QueryCondition qc) throws ParseException {
+        Integer pageno = req.getParameter("pageno") != null ? Integer.parseInt(req.getParameter("pageno")) : 1;
+        Integer pagesize = req.getParameter("size") != null ? Integer.parseInt(req.getParameter("size")) : 20;
+        Integer id = req.getParameter("uid") != null ? Integer.parseInt(req.getParameter("uid")) : 0;
+        String keyword = req.getParameter("keyword");
+        String startTime = req.getParameter("starttime");
+        String endTime = req.getParameter("endtime");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        String adminMobile = RedisUtil.get(Constants.ADMIN_MOBILE + req.getSession().getId());
+
+        if(keyword != null && !keyword.equals("")){
+            qc.setName(keyword);
+            if(keyword.length() < 9 && Pattern.matches("\\d*",keyword)){
+                qc.setID(Integer.parseInt(keyword));
+            }else{
+                qc.setID(0);
+            }
+        }
+        if(startTime == null || endTime == null || startTime.equals("") || endTime.equals("")){
+            qc.setStartTime(null);
+            qc.setEndTime(null);
+        }else{
+            qc.setStartTime(sdf.parse(startTime));
+            qc.setEndTime(sdf.parse(endTime));
+        }
+        /** 查询今天注册的用户 */
+        if(qc.getIsQueryToday() != null && qc.getIsQueryToday().equals(1)){
+            qc.setStartTime(sdf.parse(DateFormatUtils.format(new Date(), "yyyy-MM-dd 00:00:00")));
+            qc.setEndTime(sdf.parse(DateFormatUtils.format(new Date(), "yyyy-MM-dd 23:59:59")));
+        }
+        /** 查询昨天注册的用户 */
+        else if(qc.getIsQueryYesterday() != null &&qc.getIsQueryYesterday().equals(1)){
+            Date yesterday = new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000);
+            qc.setStartTime(sdf.parse(DateFormatUtils.format(yesterday, "yyyy-MM-dd 00:00:00")));
+            qc.setEndTime(sdf.parse(DateFormatUtils.format(yesterday, "yyyy-MM-dd 23:59:59")));
+        }
+        qc.setUid(id);
+        PageHelper.startPage(pageno, pagesize);
+        List<User_Browsing_History> list = UBHMapper.selectUserBrowsingDetailsList(qc);
+        PageInfo page = new PageInfo(list);
+        FhUser user = fhUserMapper.selectByPrimaryKey(id);
+        model.addObject("pageno",pageno);
+        model.addObject("list",list);
+        model.addObject("total",page.getTotal());
+        model.addObject("user",user);
+        model.addObject("adminmobile",adminMobile);
+        return null;
+    }
+
+    @Override
+    public Map addSysUser(SysUser sysUser) {
+        HashMap map = new HashMap();
+        if(StringUtils.isEmpty(sysUser.getLoginName())||StringUtils.isEmpty(sysUser.getRealName())||StringUtils.isEmpty(sysUser.getUserPwd())||StringUtils.isEmpty(sysUser.getMobile())||StringUtils.isEmpty(sysUser.getJob())){
+            map.put("status",0);
+            return map;
+        }
+        sysUser.setUserStatus(Byte.valueOf("1"));
+        sysUser.setUserPwd(MD5.GetMD5Code(sysUser.getUserPwd()));
+        sysUserMapper.insertSelective(sysUser);
+        map.put("status",1);
+        return map;
+    }
+
+}

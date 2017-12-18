@@ -1,0 +1,22 @@
+package com.fuhui.service.impl;
+
+import com.fuhui.mybatis.sys.model.SysUser;
+import com.fuhui.service.ManLoginService;
+
+/**
+ * @author : xufanglong
+ * @Description:后台管理的方法
+ * @Date: create in 16:22 2017/12/2
+ * @Modified By:
+ */
+public class ManLoginServiceImpl implements ManLoginService {
+
+    /**
+     * 验证用户的登陆
+     * @return
+     */
+    @Override
+    public SysUser Checkadmin() {
+        return null;
+    }
+}

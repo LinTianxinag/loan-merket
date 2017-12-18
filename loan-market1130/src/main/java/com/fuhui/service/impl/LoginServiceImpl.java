@@ -1,0 +1,150 @@
+package com.fuhui.service.impl;
+
+
+import com.fuhui.common.config.Constants;
+import com.fuhui.common.eunm.ErrorStatusEunm;
+import com.fuhui.common.util.MD5;
+import com.fuhui.common.util.RedisUtil;
+import com.fuhui.common.util.ResultUtil;
+import com.fuhui.mybatis.generator.dao.FhUserMapper;
+import com.fuhui.mybatis.generator.model.FhUser;
+import com.fuhui.service.LoginService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * Created by Ren
+ * time:2017/12/1.16:00
+ * 登录、注册、忘记密码
+ */
+@Service
+public class LoginServiceImpl implements LoginService {
+
+    @Autowired
+    private FhUserMapper fhUserMapper;
+
+
+    /**
+     * 用户的注册的验证
+     * @param request
+     * @param mobile
+     * @param password
+     * @param code
+     * @return
+     */
+    @Override
+    public String checkRegist(HttpServletRequest request,String mobile, String password, String code) {
+
+        String regExp = "^((13[0-9])|(15[^4])|(18[0,2,3,5-9])|(17[0-8])|(147))\\d{8}$";
+        Pattern p = Pattern.compile(regExp);
+        Matcher m = p.matcher(mobile);
+        if(!m.matches()){
+            ResultUtil.getJsonResult(ErrorStatusEunm.ERRMOBILE.getValue(),ErrorStatusEunm.ERRMOBILE.getMessage());
+        }
+        //获取缓存中的验证码
+        String checkcode= RedisUtil.get(Constants.SMS_CODE + request.getSession().getId());
+        if(null==checkcode){
+            return ResultUtil.getJsonResult(ErrorStatusEunm.NULL_CODE.getValue(),ErrorStatusEunm.NULL_CODE.getMessage());
+        }
+        if(!checkcode.equals(code)){
+            return ResultUtil.getJsonResult(ErrorStatusEunm.ERR_CODE.getValue(),ErrorStatusEunm.ERR_CODE.getMessage());
+        }else{
+            FhUser fhUsers=fhUserMapper.selectByMobile(mobile);
+            if(null !=fhUsers ){
+                return ResultUtil.getJsonResult(ErrorStatusEunm.HAVEREG.getValue(),ErrorStatusEunm.HAVEREG.getMessage());
+            }
+            String securitykey= MD5.GetMD5Code(mobile+System.currentTimeMillis());
+            String finalPwd=MD5.GetMD5Code(password+securitykey);
+            FhUser fhUser=new FhUser();
+            fhUser.setMobile(mobile);
+            fhUser.setCreateTime(new Date());
+            fhUser.setPwd(finalPwd);
+            fhUser.setLoginTimes(0);
+            fhUser.setSecuritykey(securitykey);
+            fhUserMapper.insert(fhUser);
+            return ResultUtil.getJsonResult(ErrorStatusEunm.SUCCESS_CODE.getValue(),ErrorStatusEunm.SUCCESS_CODE.getMessage());
+        }
+    }
+
+    /**
+     * 用户登录的验证
+     * @param request
+     * @param response
+     * @return
+     */
+    @Override
+    public String checkLogin(HttpServletRequest request, HttpServletResponse response) {
+        String mobile=request.getParameter("mobile");
+        String password=request.getParameter("password");
+        String regExp = "^((13[0-9])|(15[^4])|(18[0,2,3,5-9])|(17[0-8])|(147))\\d{8}$";
+        Pattern p = Pattern.compile(regExp);
+        Matcher m = p.matcher(mobile);
+        if(!m.matches()){
+            return  ResultUtil.getJsonResult(ErrorStatusEunm.ERRMOBILE.getValue(),ErrorStatusEunm.ERRMOBILE.getMessage());
+        }
+        FhUser fhUser=fhUserMapper.selectByMobile(mobile);
+        if(null==fhUser){
+            return ResultUtil.getJsonResult(ErrorStatusEunm.NOREGITS.getValue(),ErrorStatusEunm.NOREGITS.getMessage());
+        }else{
+            String truePwd=fhUser.getPwd();
+            String securitykey=fhUser.getSecuritykey();
+            String checkpwd=MD5.GetMD5Code(password+securitykey);
+            if(truePwd.equals(checkpwd)){
+                //用户登录成功，保存用户的session信息
+                int userId=fhUser.getId();
+                /**  储存用户userid,session自动管理，设置未销毁自动销毁时间  */
+                RedisUtil.set(Constants.APP_SESSION + request.getSession().getId(),2000, userId);
+                return  ResultUtil.getJsonResult(ErrorStatusEunm.SUCCESS_CODE.getValue(),ErrorStatusEunm.SUCCESS_CODE.getMessage());
+            }
+        }
+        return ResultUtil.getJsonResult(ErrorStatusEunm.Error.getValue(),ErrorStatusEunm.Error.getMessage());
+    }
+
+    /**
+     * app重置密码
+     * @param request
+     * @param response
+     * @return
+     */
+    @Override
+    public String reSetPwd(HttpServletRequest request, HttpServletResponse response) {
+        String mobile=request.getParameter("mobile");
+        String password=request.getParameter("password");
+        String code=request.getParameter("code");
+
+        String regExp = "^((13[0-9])|(15[^4])|(18[0,2,3,5-9])|(17[0-8])|(147))\\d{8}$";
+        Pattern p = Pattern.compile(regExp);
+        Matcher m = p.matcher(mobile);
+        if(!m.matches()){
+            ResultUtil.getJsonResult(ErrorStatusEunm.ERRMOBILE.getValue(),ErrorStatusEunm.ERRMOBILE.getMessage());
+        }
+        //获取缓存中的验证码
+        String checkcode= RedisUtil.get(Constants.SMS_CODE + request.getSession().getId());
+        if(null==checkcode){
+            return ResultUtil.getJsonResult(ErrorStatusEunm.NULL_CODE.getValue(),ErrorStatusEunm.NULL_CODE.getMessage());
+        }
+        if(!checkcode.equals(code)){
+            return ResultUtil.getJsonResult(ErrorStatusEunm.ERR_CODE.getValue(),ErrorStatusEunm.ERR_CODE.getMessage());
+        }else{
+            FhUser fhUsers=fhUserMapper.selectByMobile(mobile);
+            if(null ==fhUsers ){
+                return ResultUtil.getJsonResult(ErrorStatusEunm.NOREGITS.getValue(),ErrorStatusEunm.NOREGITS.getMessage());
+            }
+            String securitykey= MD5.GetMD5Code(mobile+System.currentTimeMillis());
+            String finalPwd=MD5.GetMD5Code(password+securitykey);
+
+            fhUsers.setSecuritykey(securitykey);
+            fhUsers.setPwd(finalPwd);
+            fhUserMapper.updateByPrimaryKey(fhUsers);
+            return ResultUtil.getJsonResult(ErrorStatusEunm.SUCCESS_CODE.getValue(),ErrorStatusEunm.SUCCESS_CODE.getMessage());
+        }
+    }
+
+
+}

@@ -1,0 +1,68 @@
+package com.fuhui.service.impl;
+
+import com.fuhui.common.entity.QueryCondition;
+import com.fuhui.mybatis.generator.dao.FhUserMapper;
+import com.fuhui.mybatis.generator.model.FhUser;
+import com.fuhui.service.ManUserService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
+import java.util.List;
+import java.util.regex.Pattern;
+
+/**
+ * 用户信息业务操作实现类
+ * Created by Ren
+ * time:2017/12/4.13:18
+ */
+@Service
+public class ManUserServiceImpl implements ManUserService {
+    @Autowired
+    private FhUserMapper fhUserMapper;
+
+    /**
+     * 获取用户列表
+     * @param req
+     * @param model
+     * @param queryCondition
+     * @return List<FhUser>
+     */
+    @Override
+    public List<FhUser> getFhUserList(HttpServletRequest req, ModelAndView model, QueryCondition queryCondition) {
+        Integer pageno = req.getParameter("pageno") != null ? Integer.parseInt(req.getParameter("pageno")) : 1;
+        Integer pagesize = req.getParameter("size") != null ? Integer.parseInt(req.getParameter("size")) : 20;
+        String keyword = req.getParameter("keyword");
+
+        if(keyword != null){
+            if(Pattern.matches("[0-9]*",keyword)){                            /** 判断是否为平台号 */
+                queryCondition.setID(Integer.parseInt(keyword));
+            }else if(Pattern.matches("[\\u4e00-\\u9fa5]",keyword)){         /** 判断是否为平台名 */
+                queryCondition.setPlatformName(keyword);
+            }
+        }
+        /** 查询今天注册的用户 */
+        if(queryCondition.getIsQueryToday() != null && queryCondition.getIsQueryToday() == 1){
+            queryCondition.setApplicationStartTime(new Date());
+            queryCondition.setApplicationEndTime(new Date());
+        }
+        /** 查询昨天注册的用户 */
+        else if(queryCondition.getIsQueryYesterday() != null && queryCondition.getIsQueryYesterday() == 1){
+            Date yesterday = new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000);
+            queryCondition.setApplicationStartTime(yesterday);
+            queryCondition.setApplicationEndTime(yesterday);
+        }
+        PageHelper.startPage(pageno, pagesize);
+        List<FhUser> list = fhUserMapper.selectFhUserList(queryCondition);
+        PageInfo page = new PageInfo(list);
+
+        model.addObject("pageno",pageno);
+        model.addObject("list",list);
+        model.addObject("total",page.getTotal());
+        return null;
+    }
+}

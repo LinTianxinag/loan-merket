@@ -1,0 +1,273 @@
+<#include "./header.ftl">
+<!-- main start -->
+<div id="ucenterWrapper" class="ucenterWidth1 clearfix">
+<#include "./menu.ftl">
+
+    <!-- main content start -->
+    <body>
+    <form id="formid" method="post"  name="formid" action = "/plat/add">
+        <div id="jiekubox">
+            <div class="jiekutop">
+                <h2>借款参数</h2>
+                <div class="jiekutop_cont">
+                    <div class="jiekutopCont1">
+                        <div class="jiekutopCont1_left" >平台名称</div>
+                        <div class="jiekutopCont1_right">
+                            <input type="text"  placeholder="平台名称不可重复" name="platname" id="platname"/>
+                            <span class="reserr"></span>
+                        </div>
+                    </div>
+                    <div class="jiekutopCont1">
+                        <div class="jiekutopCont1_left">参考利率</div>
+                        <div class="jiekutopCont1_right">
+                            <select name="rateType" id="">
+                                <option value="1">日参考利率</option>
+                                <option value="2" >月参考利率</option>
+                            </select>
+                            <input type="text"  name="rate" id="rate"/> %
+                            <span class="rateerr" style="font-size: 14px;color: red" ></span>
+                        </div>
+                    </div>
+                    <div class="jiekutopCont1">
+                        <div class="jiekutopCont1_left">借款金额区间</div>
+                        <div class="jiekutopCont1_right">
+                            <input type="text"  name="loanlow" id="loanlow"/>
+                            <span>--</span>
+                            <input type="text"  name="loanhigh" id="loanhigh"/>
+                            <span>元</span>
+                        </div>
+                    </div>
+                    <div class="jiekutopCont1">
+                        <div class="jiekutopCont1_left">借款周期区间</div>
+                        <div class="jiekutopCont1_right">
+                            <input type="text" name="loantimelow"/>
+                            <span>--</span>
+                            <input type="text" name="loantimehigh"/>
+                            <span>天</span>
+                        </div>
+                    </div>
+                    <div class="jiekutopCont1">
+                        <div class="jiekutopCont1_left">最快放款时间</div>
+                        <div class="jiekutopCont1_right">
+                            <select name="fundtimetype" id="fundtimetype">
+                                <option value="1" >按小时</option>
+                                <option value="2">按分钟</option>
+                                <option value="3">按秒</option>
+                            </select>
+                            <input type="text"  name="fundtime"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="jiekumiddle">
+                <h2>所需材料</h2>
+                <div class="jiekumiddle_one">
+                    <label for="idcard">
+                        <input type="checkbox" id="idcard" name="idcard" value="1"/>
+                        身份证
+                    </label>
+                    <label for="shouquan">
+                        <input type="checkbox" id="shouquan" name="shouquan" value="1"/>
+                        运营商授权
+                    </label>
+                    <label for="bankcard">
+                        <input type="checkbox" id="bankcard" name="bankcard" value="1"/>
+                        银行卡
+                    </label>
+                    <label for="xinyong">
+                        <input type="checkbox" id="xinyong" name="xinyong" value="1"/>
+                        芝麻信用
+                    </label>
+                    <label for="xuexin">
+                        <input type="checkbox" id="xuexin" name="xuexin" value="1"/>
+                        学信网授权
+                    </label>
+                    <label for="taobao">
+                        <input type="checkbox" id="taobao" name="taobao" value="1"/>
+                        淘宝授权
+                    </label>
+                    <label for="bankcard">
+                        <input type="checkbox" id="alipay" name="alipay" value="1"/>
+                        支付宝授权
+                    </label>
+                    <label for="qq">
+                        <input type="checkbox" id="qq" name="qq" value="1"/>
+                        QQ授权
+                    </label>
+
+                </div>
+                <div class="jiekumiddle_two">
+                    <div class="jiekumiddle_oneleft">申请条件</div>
+                    <div class="jiekumiddle_oneright">
+                        <textarea name="applycondition" id="" style="width:578px;height:140px;border:1px solid #333;text-align:left;"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="jiekudown">
+
+                <h2>图片上传</h2>
+                <label class="pull-left"><span class="fc-ff0000"></span></label>
+
+                            <div class="pull-left up-con">
+                                <!-- 鼠标交互预览图 -->
+                                <div class="btn-wrap pull-left">
+                                    <img src="" class="class-img" style="width: 300px; height: 200px; border: 1px solid #000;overflow: hidden;">
+                                    <input class="fileupload" id="fileuploadSC" type="file" name="file" accept="image/png,image/jpeg" multiple />
+                                </div>
+                                <div class="up-info pull-left ml10">
+                                    <div class="wj-name up-cg">
+                                        <p class="gs-dx">支持png、jpg格式，大小不超过2M</p>
+                                        <p class="pj-name clearfix">
+                                            <span class="mz"></span>
+                                            <span class="lx"></span>
+                                            <input class="imageurl"  name="imageurl" type="hidden"  value=""/>
+                                        </p>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="bg-bar"></div>
+                                        <div class="bar" id="barIdCardTake" style="width: 0%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                <h2>前台展示</h2>
+                <div class="jiekudown_wrap">
+                    <div class="jiekudown1">
+                        <div class="jiekud1_left">首页展示</div>
+                        <div class="jiekud1_right">
+                            <label for="yes">
+                                <input type="radio" name="itemone" id="yes" value="1"/>
+                                是
+                            </label>
+                            <label for="no">
+                                <input type="radio" name="itemone" id="no" value="0"/>
+                                否
+                            </label>
+                        </div>
+                    </div>
+                    <div class="jiekudown2">
+                        <div class="jiekud2_left">列表展示</div>
+                        <div class="jiekud2_right">
+                            <select name="chooseposition" id="jieku_select">
+                                <option >选择</option>
+                                <#--<option value="1">1</option>-->
+                                <#--<option value="2">2</option>-->
+                                <#--<option value="3">3</option>-->
+                                <#--<option value="4">4</option>-->
+                            </select>
+                            <span class="reserr">不选择，默认排列在最后一位</span>
+                        </div>
+                    </div>
+                    <div class="jiekudown3">
+                        <div class="jiekud3_left">上架状态</div>
+                        <div class="jiekud3_right">
+                            <label for="yestwo">
+                                <input type="radio" name="itemtwo" id="yestwo" value="0" checked />
+                                已下架
+                            </label>
+                            <label for="notwo">
+                                <input type="radio" name="itemtwo" value="1" id="notwo"/>
+                                已上架
+                            </label>
+                        </div>
+                    </div>
+                    <div class="jiekudown4">
+                        <div class="jiekud4_left">标签显示</div>
+                        <div class="jiekud4_right">
+                            <label for="thr1">
+                                <input type="radio" name="itemthr" id="thr1" value="1" checked />
+                                新品
+                            </label>
+                            <label for="thr2">
+                                <input type="radio" name="itemthr" value="2" id="thr2"/>
+                                推荐
+                            </label>
+                            <label for="thr3">
+                                <input type="radio" name="itemthr" value="3" id="thr3"/>
+                                火热
+                            </label>
+                        </div>
+                    </div>
+                    <div class="jiekudown5">
+                        <div class="jiekud5_left">跳转连接</div>
+                        <div class="jiekud5_right">
+                            <textarea name="jumpurl" id="" style="width:578px;height:48px;border:1px solid #333;text-align:left;"></textarea>
+                        </div>
+                    </div>
+                    <div class="jiekudown6">
+                        <input type="submit"  class="jiekubtn" value="提交"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    </body>
+    <!-- main content end -->
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        $('#platname').on('blur',function () {
+            var platname=$('#platname').val();
+            if(platname==""){
+                $('.reserr').text("不能为空");
+            }else{
+                $('.reserr').text("");
+                $.ajax({
+                    url:'/plat/namecheck',
+                    type:'get',
+                    dataType:'json',
+                    data:{platname:platname},
+                    success:function(data){
+                        if(data.status==100){
+                            $('.reserr').text("都说了不要重复");
+                        }else{
+                            $('.reserr').text("");
+                        }
+                    }
+                })
+            }
+        })
+        $('#rate').on('blur',function () {
+            var rate=$('#rate').val();
+            if(rate==""){
+                $('.rateerr').text("不能为空");
+            }else{
+                $('.rateerr').text("");
+            }
+        })
+    })
+
+    // 退出登录
+    function logout(){
+        $.getJSON('/login/logout',function(obj){
+            window.location.href='/';
+        })
+    }
+
+    $("#fileuploadSC").click(function () {
+        upload(this,barIdCardTake);
+    })
+
+    $(document).ready(function(){
+        $.post("/plat/getplatlist",function(data){
+            var parent_length = $('#jieku_select').children().length;
+            var resnum = Number(parent_length)+Number(data.count);
+            var htm = '<option value="'+0+'">请选择</option>';
+            for(var i=0;i<resnum;i++){
+                htm += '<option value="'+(i+1)+'">'+(i+1)+'</option>';
+            };
+            console.log(htm)
+            $('#jieku_select').html(htm)
+        });
+
+    });
+</script>
+
+
+<style type="text/css">.layui-layer-tips .layui-layer-content{color: #666}</style>
+
+
+<#include "./bottom.ftl">
+</body>

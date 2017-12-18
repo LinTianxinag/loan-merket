@@ -1,0 +1,64 @@
+
+
+package com.fuhui.common.eunm;
+
+
+/**
+ * Project Name:dubbo-aalc
+ * File Name:ErrorStatusEunm
+ * Package:com.cclc.com.anganglicai.core.support.eunm.ErrorStatusEunm
+ *
+ * @author:panwang
+ * @description: 定义错误枚举
+ * @date:2017/4/11
+ * @version:V1.0
+ * @see:jdk7 Copyright (c) 2017, mikuismywifu@gmail.com All Rights Reserved.
+ */
+public enum ErrorStatusEunm implements EnumMessage {
+
+	ERR_CODE(100,"错误的验证码"),
+	NULL_CODE(101,"未输入验证码"),
+
+	NOADMIM(106,"暂无该管理员"),
+	ERRPHONE(105,"手机号码错误了"),
+	PICERR(106,"图片验证码输入错误"),
+	PINGFANERR(107,"请勿频繁点击"),
+	SUCCESS_CODE(200,"成功"),
+	requestRefuse(300,"请求拒绝"),
+	Error(-1, "请求异常，稍后重试"),
+	HAVEREG(108, "该号码已注册"),
+	ERRMOBILE(109, "号码格式不符合"),
+	NOREGITS(111, "该号码未注册"),
+
+	ERROR_AUTH_CODE(1001,"验证码错误"),
+	systemError(-1,"系统错误，稍后重试"),
+	requestParameter(40001,"请求参数错误"),
+	reject(300002, "请求驳回");
+
+	private final Integer _code;
+	private final String _message;
+
+	ErrorStatusEunm(Integer code, String message) {
+		_code = code;
+		_message = message;
+	}
+
+	@Override
+	public Integer getValue() {
+		return _code;
+	}
+
+	@Override
+	public String getMessage() {
+		return _message;
+	}
+
+	public static String getMessage(Integer code) {
+		for (ErrorStatusEunm status : ErrorStatusEunm.values()) {
+			if (status.getValue().equals(code)) {
+				return status.getMessage();
+			}
+		}
+		return code + "";
+	}
+}

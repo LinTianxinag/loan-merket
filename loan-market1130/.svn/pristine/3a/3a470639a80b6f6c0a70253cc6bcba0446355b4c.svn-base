@@ -1,0 +1,18 @@
+package com.fuhui.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.servlet.ModelAndView;
+
+/**
+ * @author : xufanglong
+ * @Description:用户平台的添加及变更
+ * @Date: create in 10:30 2017/12/7
+ * @Modified By:
+ */
+
+@Controller
+public class ManplatController {
+
+
+
+}

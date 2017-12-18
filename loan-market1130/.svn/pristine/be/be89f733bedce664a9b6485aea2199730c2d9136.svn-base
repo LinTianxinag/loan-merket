@@ -1,0 +1,258 @@
+package com.fuhui.service.impl;
+
+
+import com.fuhui.annoation.ApiCheck;
+import com.fuhui.common.entity.QueryCondition;
+import com.fuhui.common.util.Constants;
+import com.fuhui.common.util.RedisUtil;
+import com.fuhui.mybatis.generator.dao.PlatformMapper;
+import com.fuhui.mybatis.generator.dao.Platform_RecordMapper;
+import com.fuhui.mybatis.generator.model.Platform;
+import com.fuhui.mybatis.generator.model.Platform_Record;
+import com.fuhui.service.ManPlaService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.regex.Pattern;
+
+/**
+ * 用户信息业务操作实现类
+ * Created by Ren
+ * time:2017/12/4.13:18
+ */
+@Service
+public class ManPlaServiceImpl implements ManPlaService {
+    @Autowired
+    private PlatformMapper platformMapper;
+    @Autowired
+    private Platform_RecordMapper platform_recordMapper;
+
+    @Autowired
+    private Platform_RecordMapper platformRecordMapper;
+
+    /**
+     * 获取平台列表
+     * @param req
+     * @param model
+     * @param qc
+     * @return
+     * @throws ParseException
+     */
+    @Override
+    public List<Platform> getPlaList(HttpServletRequest req, ModelAndView model, QueryCondition qc) throws ParseException {
+        Integer pageno = req.getParameter("pageno") != null ? Integer.parseInt(req.getParameter("pageno")) : 1;
+        Integer pagesize = req.getParameter("size") != null ? Integer.parseInt(req.getParameter("size")) : 20;
+        String keyword = req.getParameter("keyword");
+        String startTime = req.getParameter("starttime");
+        String endTime = req.getParameter("endtime");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        String adminMobile = RedisUtil.get(Constants.ADMIN_MOBILE + req.getSession().getId());
+
+        if(keyword != null && !keyword.equals("")){
+            qc.setName(keyword);
+            if(keyword.length() < 9 && Pattern.matches("\\d",keyword)){
+                qc.setID(Integer.parseInt(keyword));
+            }else{
+                qc.setID(0);
+            }
+        }
+        if(startTime == null || endTime == null || startTime.equals("") || endTime.equals("")){
+            qc.setStartTime(null);
+            qc.setEndTime(null);
+        }else{
+            qc.setStartTime(sdf.parse(startTime));
+            qc.setEndTime(sdf.parse(endTime));
+        }
+
+        PageHelper.startPage(pageno, pagesize);
+        List<Platform_Record> plalist = platform_recordMapper.selectPlatformList(qc);
+
+        List<Platform_Record> prlist = platform_recordMapper.selectAll();
+
+        for(int i=0;i<plalist.size();i++){
+            for(int y=0;y<prlist.size();y++){
+                if(prlist.get(y).getId().equals(plalist.get(i).getId())){
+                    plalist.get(i).setPosition(y+1);
+                }
+            }
+        }
+        PageInfo page = new PageInfo(plalist);
+        model.addObject("pageno",pageno);
+        model.addObject("list",plalist);
+        model.addObject("total",page.getTotal());
+        model.addObject("adminmobile",adminMobile);
+        return null;
+    }
+
+    /**
+     * 后台管理增加平台的方法
+     * @param request
+     * @param response
+     * @return
+     */
+    @Override
+    public boolean addPlatForm(HttpServletRequest request, HttpServletResponse response) {
+        String platname=request.getParameter("platname");
+        String rateType=request.getParameter("rateType");
+        String rate=request.getParameter("rate");
+        String loanlow=request.getParameter("loanlow");
+        String loanhigh=request.getParameter("loanhigh");
+        String loantimelow=request.getParameter("loantimelow");
+        String loantimehigh=request.getParameter("loantimehigh");
+        String fundtimetype=request.getParameter("fundtimetype");
+        String fundtime=request.getParameter("fundtime");
+        String idcard=request.getParameter("idcard");
+        String shouquan=request.getParameter("shouquan");
+        String bankcard=request.getParameter("bankcard");
+        String xinyong=request.getParameter("xinyong");
+        String xuexin=request.getParameter("xuexin");
+        String taobao=request.getParameter("taobao");
+        String alipay=request.getParameter("alipay");
+        String qq=request.getParameter("qq");
+        String applycondition=request.getParameter("applycondition");
+        String itemone=request.getParameter("itemone");
+        String chooseposition=request.getParameter("chooseposition");
+        String itemtwo=request.getParameter("itemtwo");
+        String itemthr=request.getParameter("itemthr");
+        String jumpurl=request.getParameter("jumpurl");
+
+        //判断平台名称是否重复添加
+        Platform platforms=platformMapper.getPlatFormByName(platname);
+        if(null !=platforms){
+            return false;
+        }
+        //插入平台的记录
+        Platform platform=new Platform();
+        platform.setName(platname);
+        platform.setReferenceInterestRate(rate);
+        platform.setReferenceDay(rateType);
+        platform.setLoanMoneyLow(loanlow);
+        platform.setLoanMoneyHigh(loanhigh);
+        platform.setLoanCycleLow(loantimelow);
+        platform.setLoanCycleHigh(loantimehigh);
+        platform.setFastLoan(fundtimetype);
+        platform.setFastLoanTime(fundtime);
+        if(null==idcard){
+            platform.setIdcard("0");
+        }else{
+            platform.setIdcard("1");
+        }
+        if(null==shouquan){
+            platform.setCarrierWarrant("0");
+        }else{
+            platform.setCarrierWarrant("1");
+        }
+        if(null==bankcard){
+            platform.setBankCard("0");
+        }else{
+            platform.setBankCard("1");
+        }
+        if(null==xinyong){
+            platform.setZhima("0");
+        }else{
+            platform.setZhima("1");
+        }
+        if(null==xuexin){
+            platform.setXuexinwang("0");
+        }else{
+            platform.setXuexinwang("1");
+        }
+        if(null==taobao){
+            platform.setTaobao("0");
+        }else{
+            platform.setTaobao("1");
+        }
+        if(null==alipay){
+            platform.setZhifubao("0");
+        }else{
+            platform.setZhifubao("1");
+        }
+        if(null==qq){
+            platform.setQq("0");
+        }else{
+            platform.setQq("1");
+        }
+        if(!applycondition.equals("")){
+            platform.setApplyconditions(applycondition);
+        }
+        if(itemone.equals("1")){
+            platform.setHomepage("1");
+        }else{
+            platform.setHomepage("0");
+        }
+        //展示位置的检测并插入，先查询所有的记录并排序
+        List<Platform> list=platformMapper.selectAndGetList();
+        //display最终记录的位置
+        int display=0;
+        //用户选择的位置
+        int chooseposit=0;
+        if(!chooseposition.equals("")){
+            chooseposit=Integer.parseInt(chooseposition) ;
+        }else{
+            //未填写的时候，默认展示在最后一位
+            chooseposit=list.size()+1;
+        }
+
+        if(list.size()>0){
+            if(chooseposit >list.size()){
+                display=chooseposit*1000;
+                platform.setDisplayposition(display);
+            }else{
+                if(chooseposit==1){
+                    int x=list.get(chooseposit-1).getDisplayposition();
+                    int y=0;
+                    display=(x+y)/2;
+                    platform.setDisplayposition(display);
+                }else{
+                    int x=list.get(chooseposit-1).getDisplayposition();
+                    int y=list.get(chooseposit-2).getDisplayposition();
+                    display=(x+y)/2;
+                    platform.setDisplayposition(display);
+                }
+            }
+        }else{
+            platform.setDisplayposition(10000);
+        }
+
+        platform.setOnshelves(itemtwo);
+        platform.setLabelshow(itemthr);
+        platform.setJumpurl(jumpurl);
+        platform.setCreateTime(new Date());
+
+        try{
+            platformMapper.insertSelective(platform);
+
+            //生成精简的记录
+            Platform_Record platform_record=new Platform_Record();
+            platform_record.setPlatId(platform.getId());
+            platform_record.setPlatName(platform.getName());
+            platform_record.setRate(platform.getReferenceInterestRate());
+            platform_record.setByday(platform.getReferenceDay());
+            platform_record.setVisitorsNum(0);
+            platform_record.setIsHomepage(platform.getHomepage());
+            platform_record.setPosition(platform.getDisplayposition());
+            platform_record.setOnshelvesTime(platform.getCreateTime());
+            platform_record.setOnshelvesStatus(platform.getOnshelves());
+            platform_record.setUpdateTime(new Date());
+            platformRecordMapper.insertSelective(platform_record);
+
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+
+
+        return true;
+    }
+
+
+}

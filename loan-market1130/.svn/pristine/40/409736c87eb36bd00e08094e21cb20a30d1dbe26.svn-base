@@ -1,0 +1,101 @@
+package com.fuhui.common.entity;
+
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * 查询条件实体类
+ * @author Ren
+ */
+public class QueryCondition implements Serializable {
+    /** 平台ID */
+    private Integer ID;
+
+    /** 平台名 */
+    private String platformName;
+
+    /** 用户申请开始时间（区间）*/
+    private Date applicationStartTime;
+
+    /** 用户申请结束时间（区间）*/
+    private Date applicationEndTime;
+
+    /** 用户申请结果 */
+    private String applicationResult;
+
+    /** 是否查询今天 0-否 1-是 */
+    private Integer isQueryToday;
+
+    /** 是否查询昨天 0-否 1-是 */
+    private Integer isQueryYesterday;
+
+
+    public Integer getID() {
+        return ID;
+    }
+
+    public void setID(Integer ID) {
+        this.ID = ID;
+    }
+
+    public String getPlatformName() {
+        return platformName;
+    }
+
+    public void setPlatformName(String platformName) {
+        this.platformName = platformName;
+    }
+
+    public Date getApplicationStartTime() {
+        return applicationStartTime;
+    }
+
+    public void setApplicationStartTime(Date applicationStartTime) {
+        this.applicationStartTime = applicationStartTime;
+    }
+
+    public Date getApplicationEndTime() {
+        return applicationEndTime;
+    }
+
+    public void setApplicationEndTime(Date applicationEndTime) {
+        this.applicationEndTime = applicationEndTime;
+    }
+
+    public String getApplicationResult() {
+        return applicationResult;
+    }
+
+    public void setApplicationResult(String applicationResult) {
+        this.applicationResult = applicationResult;
+    }
+
+    public Integer getIsQueryToday() {
+        return isQueryToday;
+    }
+
+    public void setIsQueryToday(Integer isQueryToday) {
+        this.isQueryToday = isQueryToday;
+    }
+
+    public Integer getIsQueryYesterday() {
+        return isQueryYesterday;
+    }
+
+    public void setIsQueryYesterday(Integer isQueryYesterday) {
+        this.isQueryYesterday = isQueryYesterday;
+    }
+
+    @Override
+    public String toString() {
+        return "QueryCondition{" +
+                "ID=" + ID +
+                ", platformName='" + platformName + '\'' +
+                ", applicationStartTime=" + applicationStartTime +
+                ", applicationEndTime=" + applicationEndTime +
+                ", applicationResult='" + applicationResult + '\'' +
+                ", isQueryToday=" + isQueryToday +
+                ", isQueryYesterday=" + isQueryYesterday +
+                '}';
+    }
+}

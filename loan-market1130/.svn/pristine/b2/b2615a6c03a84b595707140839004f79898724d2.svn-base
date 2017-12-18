@@ -1,0 +1,39 @@
+package com.fuhui.service.impl;
+
+//import com.fuhui.mybatis.generator.dao.SysUserMapper;
+//import com.fuhui.mybatis.generator.model.SysUser;
+import com.fuhui.common.config.Constants;
+import com.fuhui.common.eunm.ErrorStatusEunm;
+import com.fuhui.common.util.RedisUtil;
+import com.fuhui.common.util.ResultUtil;
+import com.fuhui.service.LoginService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * Created by Ren
+ * time:2017/12/1.16:00
+ * 登录、注册、忘记密码
+ */
+@Service
+public class LoginServiceImpl implements LoginService {
+
+
+    @Override
+    public String checkRegist(HttpServletRequest request,String mobile, String password, String code) {
+
+        //获取缓存中的验证码
+        String checkcode= RedisUtil.get(Constants.SMS_CODE + request.getSession().getId());
+        if(null==checkcode){
+            return ResultUtil.getJsonResult(ErrorStatusEunm.PICERR.getValue(),ErrorStatusEunm.PICERR.getMessage());
+        }
+        if(!checkcode.equals('"'+code+'"')){
+            return ResultUtil.getJsonResult(ErrorStatusEunm.ERROR_AUTH_CODE.getValue(),ErrorStatusEunm.ERROR_AUTH_CODE.getMessage());
+        }else{
+            return ResultUtil.getJsonResult(ErrorStatusEunm.SUCCESS_CODE.getValue(),ErrorStatusEunm.SUCCESS_CODE.getMessage());
+        }
+    }
+
+}

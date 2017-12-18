@@ -1,0 +1,202 @@
+package com.fuhui.service.impl;
+
+import com.alibaba.fastjson.JSONObject;
+import com.fuhui.common.config.*;
+import com.fuhui.common.eunm.ErrorStatusEunm;
+import com.fuhui.common.eunm.WodongEunm;
+import com.fuhui.common.util.*;
+import com.fuhui.common.util.Constants;
+import com.fuhui.mybatis.dto.SendSmsDto;
+import com.fuhui.service.SmsService;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * @author : xufanglong
+ * @Description:短信发送的实现类
+ * @Date: create in 13:05 2017/12/1
+ * @Modified By:
+ */
+@Service
+public class SmsServiceImpl implements SmsService{
+    /**
+     * 短信配置的参数
+     */
+    private static String title= "【贷款超市】";
+    private static String wodong_url= Resources.WODONG.getString("wodong_url");
+    private static String wodong_account=Resources.WODONG.getString("wodong_account");
+    private static String wodong_pwd=Resources.WODONG.getString("wodong_pwd");
+    private static String wodong_userid=Resources.WODONG.getString("wodong_userid");
+    private static String content=null;
+    /**  验证码默认有效时间  */
+    private final Integer seconds = 120;
+
+    @Override
+    public String SmsCheck(HttpServletRequest request, HttpServletResponse response) {
+
+        //安全方面的检测
+        String mobile=request.getParameter("mobile");
+        int type=Integer.parseInt(request.getParameter("type"));
+        String regExp = "^((13[0-9])|(15[^4])|(18[0,2,3,5-9])|(17[0-8])|(147))\\d{8}$";
+        Pattern p = Pattern.compile(regExp);
+        Matcher m = p.matcher(mobile);
+        if(!m.matches()){
+            return ResultUtil.getJsonResult(ErrorStatusEunm.ERRPHONE.getValue(),ErrorStatusEunm.ERRPHONE.getMessage());
+
+        }
+        //0：注册，图片验证码的判断
+//        if(type==0){
+//            String kapcode=request.getParameter("kapcode");
+//            //图片验证码验证
+//            String imgCode= RedisUtil.get(request.getSession().getId() + com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
+//            if(imgCode==null ||!imgCode.equals('"'+kapcode+'"')){
+//                return ResultUtil.getJsonResult(ErrorStatusEunm.PICERR.getValue(),ErrorStatusEunm.PICERR.getMessage());
+//            }
+//        }
+
+        String exists =RedisUtil.get(Constants.PHONE_NUMBER + request.getSession().getId());
+        if( null !=exists){
+            return ResultUtil.getJsonResult(ErrorStatusEunm.PINGFANERR.getValue(),ErrorStatusEunm.PINGFANERR.getMessage());
+        }
+
+
+        SendSmsDto sendSmsDto = new SendSmsDto();
+        sendSmsDto.setMobile(mobile);
+        sendSmsDto.setSmsType(type);
+        sendSmsDto.setTimeSecond(120);
+        sendSmsDto.setType(false);
+        String userid= RedisUtil.get(com.fuhui.common.config.Constants.WEB_SESSION + request.getSession().getId());
+        if(userid!=null){
+            sendSmsDto.setUserid(Integer.parseInt(userid));
+        }
+        sendSmsDto.setSessionid(request.getSession().getId());
+        sendSmsDto.setIp(WebUtil.getHost(request));
+
+        //手机号设置两分钟的限制
+        RedisUtil.set(Constants.PHONE_NUMBER + request.getSession().getId() ,120, mobile);
+        return woDongSend(sendSmsDto);
+
+    }
+
+    @Override
+    public String woDongSend(SendSmsDto sendSmsDto){
+
+        /**  1.安全校验，短信防刷   */
+        if (requestVerification(sendSmsDto)){
+            /*2.判断是否存在的短信模板id */
+            if(WodongEunm.booleanMessage(sendSmsDto.getSmsType())){
+                int TplValue=getTplValue(sendSmsDto);
+                return SendSms(sendSmsDto.getMobile(),String.valueOf(TplValue),sendSmsDto.getSmsType());
+            }
+
+        }else{
+            return ResultUtil.getJsonResult(ErrorStatusEunm.requestRefuse.getValue(),ErrorStatusEunm.requestParameter.getMessage());
+
+        }
+        return ResultUtil.getJsonResult(ErrorStatusEunm.Error.getValue(),ErrorStatusEunm.ERR_CODE.getMessage());
+    }
+    /**
+     * 1.缓存验证码
+     * 2.拼接编码变量短信数据
+     * 3.重新流的处理
+     * @param sendSmsDto
+     * @return
+     */
+    private int getTplValue(SendSmsDto sendSmsDto) {
+        //code验证码
+        int code = (int)((Math.random() * 9 + 1) * 100000);
+        //默认验证码有效期2分钟
+        RedisUtil.set(Constants.SMS_CODE + sendSmsDto.getSessionid(),sendSmsDto.getTimeSecond() != null ? sendSmsDto.getTimeSecond() : seconds,code);
+        return code;
+    }
+
+
+
+
+    /**
+     * 短信下发的安全方面的检测
+     * @param sendSmsDto
+     * @return
+     */
+    @Override
+    public boolean requestVerification(SendSmsDto sendSmsDto){
+        //true:为系统下发，false为用户下发，系统下发不限制下发次数
+        if (sendSmsDto.isType()){
+            return true;
+        }
+        boolean type = false;
+        //登录用户验证当前用户下发短信条数
+        if (sendSmsDto.getUserid() != null) {
+            String useridKey = Constants.SEND_SMS_USERID_COUNT + sendSmsDto.getUserid();
+            String useridcount = RedisUtil.get(useridKey);
+            String ss = Resources.CONFIG.getString("send-sms-count");
+            System.out.println(ss);
+            if (useridcount == null || Integer.parseInt(useridcount) < Integer.parseInt(Resources.CONFIG.getString("send-sms-count"))) {
+                RedisUtil.incr(useridKey);
+                RedisUtil.expire(useridKey,Integer.parseInt(Resources.CONFIG.getString("send-sms-error-time")));
+                type = true;
+            }
+        }
+        if (sendSmsDto.getIp() != null && sendSmsDto.getSessionid() != null) {
+            String ipKey = Constants.SEND_SMS_IP_COUNT + sendSmsDto.getIp();
+            String sessionKey = Constants.SEND_SMS_SESSION_COUNT + sendSmsDto.getSessionid();
+            String ipCount = RedisUtil.get(ipKey);
+            String sessionCount = RedisUtil.get(sessionKey);
+            //ip发送短信次数 并且 相同浏览器 验证浏览器标识session发送短信次数
+            if ((ipCount == null || Integer.parseInt(ipCount) < Integer.parseInt(Resources.CONFIG.getString("send-sms-count")))
+                    && (sessionCount == null || Integer.parseInt(sessionCount) <= Integer.parseInt(Resources.CONFIG.getString("send-sms-count")))) {
+                RedisUtil.incr(ipKey);
+                RedisUtil.incr(sessionKey);
+                RedisUtil.expire(sessionKey,Integer.parseInt(Resources.CONFIG.getString("send-sms-error-time")));
+                RedisUtil.expire(ipKey,Integer.parseInt(Resources.CONFIG.getString("send-sms-error-time")));
+                type = true;
+            }
+        }
+        return type;
+    }
+
+
+
+    /**
+     * 沃动的短信发送
+     * @param mobile：发送的号码
+     * @param TplValue：加密的数据
+     * @param type：发送短信的类型
+     * @return
+     */
+    @Override
+    public String SendSms(String mobile, String TplValue,int type) {
+        if(type==0 || type==1 || type == 5){
+            content=WodongEunm.getMessage(type).replaceAll("#code#",TplValue);
+        }else{
+            content=WodongEunm.getMessage(type);
+        }
+        Map<String, String> params = new LinkedHashMap<String, String>();
+        params.put("userid",wodong_userid);
+        params.put("content",title+content);
+        params.put("account",wodong_account);
+        params.put("password",wodong_pwd);
+        params.put("json","1");
+        params.put("mobile",mobile);
+        params.put("action","send");
+
+//        String result=HttpUtils.URLPost(wodong_url,params,"UTF-8");
+//        JSONObject object=JSONObject.parseObject(result);
+//        String status=String.valueOf(object.getJSONObject("data").get("returnstatus"));
+        String status="Success";
+        if("Success".equals(status)){
+            return ResultUtil.getJsonResult(ErrorStatusEunm.SUCCESS_CODE.getValue(),ErrorStatusEunm.SUCCESS_CODE.getMessage());
+        }
+        return ResultUtil.getJsonResult(ErrorStatusEunm.Error.getValue(),ErrorStatusEunm.Error.getMessage());
+    }
+
+
+}

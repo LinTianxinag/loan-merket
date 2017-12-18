@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+    <classPathEntry location="C:\Users\Fun\.m2\repository\mysql\mysql-connector-java\5.1.39\mysql-connector-java-5.1.39.jar" />
+    <context id="context1" >
+
+        <!-- 抑制警告 -->
+        <property name="suppressTypeWarnings" value="true" />
+        <!-- generate entity时，生成hashcode和equals方法 -->
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+        <!-- generate entity时，生成serialVersionUID -->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+        <!-- 这个插件只会增加字符串字段映射到一个JDBC字符的方法 -->
+        <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin" />
+        <!-- genenat entity时,生成toString -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+
+        <commentGenerator>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="false"/>
+        </commentGenerator>
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://192.168.2.143:3306/fuhui_sm?characterEncoding=utf8"
+                        userId="root" password="aalc1234">
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="com.fuhui.mybatis.generator.model"
+                            targetProject="src/main/java">
+            <property name="constructorBased" value="false" />
+            <property name="useActualColumnNames" value="true" />
+            <property name="enableSubPackages" value="false" />
+            <property name="immutable" value="false" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="com.fuhui.mybatis.generator.xml"
+                         targetProject="src/main/java">
+            <property name="enableSubPackages" value="false" />
+        </sqlMapGenerator>
+        <javaClientGenerator targetPackage="com.fuhui.mybatis.generator.dao"
+                             targetProject="src/main/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="" />
+            <property name="methodNameCalculator" value="" />
+            <property name="rootInterface" value="" />
+        </javaClientGenerator>
+
+        <table schema="fh_user" tableName="fh_user" domainObjectName="FhUser"
+        enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false"
+        selectByExampleQueryId="false" />
+
+        <!--<table schema="sys_user" tableName="sys_user" domainObjectName="SysUser"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false" />-->
+
+
+
+
+
+    </context>
+</generatorConfiguration>

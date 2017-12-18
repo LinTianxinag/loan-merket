@@ -1,0 +1,30 @@
+package com.fuhui.service.impl;
+
+import com.fuhui.mybatis.generator.dao.SysUserMapper;
+import com.fuhui.mybatis.generator.model.SysUser;
+import com.fuhui.service.LoginService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+/**
+ * Created by Ren
+ * time:2017/12/1.16:00
+ * 登录、注册、忘记密码
+ */
+@Service
+public class LoginServiceImpl implements LoginService {
+    @Autowired
+    private SysUserMapper userMapper;
+
+    /**
+     * 登录
+     * @param sysUser
+     * @return
+     */
+    @Override
+    public SysUser login(SysUser sysUser){
+        return userMapper.selectUser(sysUser);
+
+    }
+
+}

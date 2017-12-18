@@ -1,0 +1,54 @@
+package com.fuhui.service;
+
+import com.alibaba.fastjson.JSONObject;
+import com.fuhui.mybatis.dto.SendSmsDto;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * @author : xufanglong
+ * @Description:
+ * @Date: create in 13:05 2017/12/1
+ * @Modified By:
+ */
+public interface SmsService {
+
+    /**
+     * 短信的验证
+     * @param request
+     * @param response
+     * @return
+     */
+    String SmsCheck(HttpServletRequest request, HttpServletResponse response);
+
+
+    /**
+     * 发送验证
+     * @param sendSmsDto
+     * @return
+     */
+    String woDongSend(SendSmsDto sendSmsDto);
+
+    /**
+     * 安全验证
+     * @param sendSmsDto
+     * @return
+     */
+    boolean requestVerification(SendSmsDto sendSmsDto);
+
+    /**
+     * 发送
+     * @param mobile
+     * @param validcode
+     * @param type
+     * @return
+     */
+    String SendSms(String mobile,String validcode,int type);
+
+
+
+
+
+
+}

@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<#-- 取得 应用的绝对根路径 -->
+    <#assign basePath=request.contextPath>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/login.css"/>
+    <link href="../css/toastr.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="../js/jquery-1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/json.parse.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/jquery.form.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/regPublic.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/nslog.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="../js/toastr.min.js"></script>
+
+
+    <title>贷款超市管理后台-登录</title>
+    <style>
+
+    </style>
+</head>
+<body>
+
+<!-- baidu log stop   -->
+<div class="loginWrapper clearfix">
+    <div class="banWrapper"  style="background: #0f0e3d">
+        <div class="banContent">
+            <img src="../images/logo_1.png" border="0"/>
+        </div>
+    </div>
+    <div class="loginMain">
+        <div class="loginWidth">
+            <div class="loginLogoDiv"><a class="loginLogo" ">贷款超市管理后台</a></div>
+            <form action="login" class="formLogin" method="post" id="login_form" >
+                <div class="loginList loginListUser">
+                    <label></label>
+                    <input type="text" class="loginText" name="mobile" id="mobile" value="" placeholder="手机号" />
+                    <span class="errorTips"><i></i><em></em></span>
+                </div>
+                <div class="loginList loginListPwd">
+                    <label></label>
+                    <input type="password" class="loginText" name="userPwd" id="userPwd" value="" placeholder="密码" />
+                    <span class="errorTips"><i></i><em></em></span>
+                </div>
+                <div class="loginList logincode">
+                    <label id="logincodes"></label>
+                    <input type="text" class="loginText" name="code" id="code" value="" placeholder="短信验证码" />
+                    <span class="errorTips"><i></i><em></em></span>
+                </div>
+
+                <input class="loginBtn" type="button" id="loginBtn" value="登录" />
+                <input type="hidden" name="uuid" value="" id="uuid">
+            </form>
+        </div>
+    </div>
+</div>
+<!-- footer end -->
+<input type="text" value="${err}">
+
+<script  type="text/javascript">
+    <#--var err = ${err}-->
+
+//    $(document).error(function(){
+//        if(err){
+//            toastr.error(err);
+//        }
+//    })
+
+    $('#loginBtn').click(function () {
+        var mobile=$("#mobile").val();
+        var userPwd=$("#userPwd").val();
+        var code=$("#code").val();
+
+        if(mobile=="" || mobile==null){
+            toastr.error("手机号不能为空");
+        }
+        if(!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(mobile))){
+            toastr.error("手机号格式不正确");
+        }
+        if(code ==""||code==null){
+        toastr.error("请点击小图标获取验证码");
+    }
+        if(userPwd =="" || userPwd==null ){
+        toastr.error("请输入密码");
+        }
+
+        $.ajax({
+        type : "POST", //提交方式
+        url : "/login",
+        data : {mobile:mobile,userPwd:userPwd,code:code},
+        success : function(result) {//返回数据根据结果进行相应的处理
+            console.log(result)
+            if(result.status==100 ||result.status==101 ||result.status==102 ||result.status==103 ) {
+                toastr.error(result.msg);
+            }else{
+                $('body').html(result);
+            }
+        }
+    });
+    })
+
+
+
+    $("#logincodes").click(function(){
+        $.post("/mansms",{mobile:$("#mobile",).val(),type:5},function(dta){
+            console.log(dta);
+            console.log(dta.msg);
+            if(dta.status==105){
+                toastr.error(dta.msg);
+            } else if(dta.status==106){
+                toastr.error(dta.msg);
+            }else if(dta.status==-1){
+                toastr.error(dta.msg);
+            }else if(dta.status==200){
+                toastr.success(dta.msg);
+            }else if(dta.status==107){
+                toastr.error(dta.msg);
+            }
+
+        })
+    })
+
+</script>
+</body>
+</html>

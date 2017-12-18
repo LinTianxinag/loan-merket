@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fuhui.mybatis.generator.dao.AccountMapper" >
+  <resultMap id="BaseResultMap" type="com.fuhui.mybatis.generator.model.Account" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="userid" property="userid" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="state" property="state" jdbcType="TINYINT" />
+    <result column="balance2" property="balance2" jdbcType="DECIMAL" />
+    <result column="balance" property="balance" jdbcType="DECIMAL" />
+    <result column="bonus" property="bonus" jdbcType="DECIMAL" />
+    <result column="bonus2" property="bonus2" jdbcType="DECIMAL" />
+    <result column="debtamount" property="debtamount" jdbcType="DECIMAL" />
+    <result column="total_principal" property="totalPrincipal" jdbcType="DECIMAL" />
+    <result column="total_interest" property="totalInterest" jdbcType="DECIMAL" />
+    <result column="total_recharge" property="totalRecharge" jdbcType="DECIMAL" />
+    <result column="total_withdraw" property="totalWithdraw" jdbcType="DECIMAL" />
+    <result column="lastupdated" property="lastupdated" jdbcType="TIMESTAMP" />
+    <result column="bankcode" property="bankcode" jdbcType="INTEGER" />
+    <result column="default_cardno" property="defaultCardno" jdbcType="VARCHAR" />
+    <result column="newbie_principal" property="newbiePrincipal" jdbcType="DECIMAL" />
+    <result column="last_principal" property="lastPrincipal" jdbcType="DECIMAL" />
+    <result column="auto_investorpayment" property="autoInvestorpayment" jdbcType="TINYINT" />
+    <result column="freewithdraw_counts" property="freewithdrawCounts" jdbcType="TINYINT" />
+    <result column="pwd" property="pwd" jdbcType="CHAR" />
+    <result column="degree" property="degree" jdbcType="TINYINT" />
+    <result column="degree_expire" property="degreeExpire" jdbcType="TIMESTAMP" />
+    <result column="freeze_withdraw" property="freezeWithdraw" jdbcType="DECIMAL" />
+    <result column="freeze_buy" property="freezeBuy" jdbcType="DECIMAL" />
+    <result column="sign" property="sign" jdbcType="CHAR" />
+    <result column="flag" property="flag" jdbcType="TINYINT" />
+    <result column="bind_flag" property="bindFlag" jdbcType="TINYINT" />
+    <result column="bind_mobile" property="bindMobile" jdbcType="VARCHAR" />
+    <result column="bind_banktype" property="bindBanktype" jdbcType="TINYINT" />
+    <result column="debtamount_ratecoupon" property="debtamountRatecoupon" jdbcType="DECIMAL" />
+    <result column="debtamount_principal" property="debtamountPrincipal" jdbcType="DECIMAL" />
+    <result column="debtamount_interest" property="debtamountInterest" jdbcType="DECIMAL" />
+    <result column="bind_id_status" property="bindIdStatus" jdbcType="VARCHAR" />
+    <result column="bind_id" property="bindId" jdbcType="VARCHAR" />
+    <result column="sms_mobile" property="smsMobile" jdbcType="VARCHAR" />
+    <result column="case_dough" property="caseDough" jdbcType="DECIMAL" />
+    <result column="private_money" property="privateMoney" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userid, type, state, balance2, balance, bonus, bonus2, debtamount, total_principal, 
+    total_interest, total_recharge, total_withdraw, lastupdated, bankcode, default_cardno, 
+    newbie_principal, last_principal, auto_investorpayment, freewithdraw_counts, pwd, 
+    degree, degree_expire, freeze_withdraw, freeze_buy, sign, flag, bind_flag, bind_mobile, 
+    bind_banktype, debtamount_ratecoupon, debtamount_principal, debtamount_interest, 
+    bind_id_status, bind_id, sms_mobile, case_dough, private_money
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from account
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from account
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.fuhui.mybatis.generator.model.Account" >
+    insert into account (id, userid, type, 
+      state, balance2, balance, 
+      bonus, bonus2, debtamount, 
+      total_principal, total_interest, total_recharge, 
+      total_withdraw, lastupdated, bankcode, 
+      default_cardno, newbie_principal, last_principal, 
+      auto_investorpayment, freewithdraw_counts, 
+      pwd, degree, degree_expire, 
+      freeze_withdraw, freeze_buy, sign, 
+      flag, bind_flag, bind_mobile, 
+      bind_banktype, debtamount_ratecoupon, debtamount_principal, 
+      debtamount_interest, bind_id_status, bind_id, 
+      sms_mobile, case_dough, private_money
+      )
+    values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{type,jdbcType=TINYINT}, 
+      #{state,jdbcType=TINYINT}, #{balance2,jdbcType=DECIMAL}, #{balance,jdbcType=DECIMAL}, 
+      #{bonus,jdbcType=DECIMAL}, #{bonus2,jdbcType=DECIMAL}, #{debtamount,jdbcType=DECIMAL}, 
+      #{totalPrincipal,jdbcType=DECIMAL}, #{totalInterest,jdbcType=DECIMAL}, #{totalRecharge,jdbcType=DECIMAL}, 
+      #{totalWithdraw,jdbcType=DECIMAL}, #{lastupdated,jdbcType=TIMESTAMP}, #{bankcode,jdbcType=INTEGER}, 
+      #{defaultCardno,jdbcType=VARCHAR}, #{newbiePrincipal,jdbcType=DECIMAL}, #{lastPrincipal,jdbcType=DECIMAL}, 
+      #{autoInvestorpayment,jdbcType=TINYINT}, #{freewithdrawCounts,jdbcType=TINYINT}, 
+      #{pwd,jdbcType=CHAR}, #{degree,jdbcType=TINYINT}, #{degreeExpire,jdbcType=TIMESTAMP}, 
+      #{freezeWithdraw,jdbcType=DECIMAL}, #{freezeBuy,jdbcType=DECIMAL}, #{sign,jdbcType=CHAR}, 
+      #{flag,jdbcType=TINYINT}, #{bindFlag,jdbcType=TINYINT}, #{bindMobile,jdbcType=VARCHAR}, 
+      #{bindBanktype,jdbcType=TINYINT}, #{debtamountRatecoupon,jdbcType=DECIMAL}, #{debtamountPrincipal,jdbcType=DECIMAL}, 
+      #{debtamountInterest,jdbcType=DECIMAL}, #{bindIdStatus,jdbcType=VARCHAR}, #{bindId,jdbcType=VARCHAR}, 
+      #{smsMobile,jdbcType=VARCHAR}, #{caseDough,jdbcType=DECIMAL}, #{privateMoney,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fuhui.mybatis.generator.model.Account" >
+    insert into account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="balance2 != null" >
+        balance2,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="bonus != null" >
+        bonus,
+      </if>
+      <if test="bonus2 != null" >
+        bonus2,
+      </if>
+      <if test="debtamount != null" >
+        debtamount,
+      </if>
+      <if test="totalPrincipal != null" >
+        total_principal,
+      </if>
+      <if test="totalInterest != null" >
+        total_interest,
+      </if>
+      <if test="totalRecharge != null" >
+        total_recharge,
+      </if>
+      <if test="totalWithdraw != null" >
+        total_withdraw,
+      </if>
+      <if test="lastupdated != null" >
+        lastupdated,
+      </if>
+      <if test="bankcode != null" >
+        bankcode,
+      </if>
+      <if test="defaultCardno != null" >
+        default_cardno,
+      </if>
+      <if test="newbiePrincipal != null" >
+        newbie_principal,
+      </if>
+      <if test="lastPrincipal != null" >
+        last_principal,
+      </if>
+      <if test="autoInvestorpayment != null" >
+        auto_investorpayment,
+      </if>
+      <if test="freewithdrawCounts != null" >
+        freewithdraw_counts,
+      </if>
+      <if test="pwd != null" >
+        pwd,
+      </if>
+      <if test="degree != null" >
+        degree,
+      </if>
+      <if test="degreeExpire != null" >
+        degree_expire,
+      </if>
+      <if test="freezeWithdraw != null" >
+        freeze_withdraw,
+      </if>
+      <if test="freezeBuy != null" >
+        freeze_buy,
+      </if>
+      <if test="sign != null" >
+        sign,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="bindFlag != null" >
+        bind_flag,
+      </if>
+      <if test="bindMobile != null" >
+        bind_mobile,
+      </if>
+      <if test="bindBanktype != null" >
+        bind_banktype,
+      </if>
+      <if test="debtamountRatecoupon != null" >
+        debtamount_ratecoupon,
+      </if>
+      <if test="debtamountPrincipal != null" >
+        debtamount_principal,
+      </if>
+      <if test="debtamountInterest != null" >
+        debtamount_interest,
+      </if>
+      <if test="bindIdStatus != null" >
+        bind_id_status,
+      </if>
+      <if test="bindId != null" >
+        bind_id,
+      </if>
+      <if test="smsMobile != null" >
+        sms_mobile,
+      </if>
+      <if test="caseDough != null" >
+        case_dough,
+      </if>
+      <if test="privateMoney != null" >
+        private_money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="balance2 != null" >
+        #{balance2,jdbcType=DECIMAL},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="bonus != null" >
+        #{bonus,jdbcType=DECIMAL},
+      </if>
+      <if test="bonus2 != null" >
+        #{bonus2,jdbcType=DECIMAL},
+      </if>
+      <if test="debtamount != null" >
+        #{debtamount,jdbcType=DECIMAL},
+      </if>
+      <if test="totalPrincipal != null" >
+        #{totalPrincipal,jdbcType=DECIMAL},
+      </if>
+      <if test="totalInterest != null" >
+        #{totalInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="totalRecharge != null" >
+        #{totalRecharge,jdbcType=DECIMAL},
+      </if>
+      <if test="totalWithdraw != null" >
+        #{totalWithdraw,jdbcType=DECIMAL},
+      </if>
+      <if test="lastupdated != null" >
+        #{lastupdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bankcode != null" >
+        #{bankcode,jdbcType=INTEGER},
+      </if>
+      <if test="defaultCardno != null" >
+        #{defaultCardno,jdbcType=VARCHAR},
+      </if>
+      <if test="newbiePrincipal != null" >
+        #{newbiePrincipal,jdbcType=DECIMAL},
+      </if>
+      <if test="lastPrincipal != null" >
+        #{lastPrincipal,jdbcType=DECIMAL},
+      </if>
+      <if test="autoInvestorpayment != null" >
+        #{autoInvestorpayment,jdbcType=TINYINT},
+      </if>
+      <if test="freewithdrawCounts != null" >
+        #{freewithdrawCounts,jdbcType=TINYINT},
+      </if>
+      <if test="pwd != null" >
+        #{pwd,jdbcType=CHAR},
+      </if>
+      <if test="degree != null" >
+        #{degree,jdbcType=TINYINT},
+      </if>
+      <if test="degreeExpire != null" >
+        #{degreeExpire,jdbcType=TIMESTAMP},
+      </if>
+      <if test="freezeWithdraw != null" >
+        #{freezeWithdraw,jdbcType=DECIMAL},
+      </if>
+      <if test="freezeBuy != null" >
+        #{freezeBuy,jdbcType=DECIMAL},
+      </if>
+      <if test="sign != null" >
+        #{sign,jdbcType=CHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=TINYINT},
+      </if>
+      <if test="bindFlag != null" >
+        #{bindFlag,jdbcType=TINYINT},
+      </if>
+      <if test="bindMobile != null" >
+        #{bindMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="bindBanktype != null" >
+        #{bindBanktype,jdbcType=TINYINT},
+      </if>
+      <if test="debtamountRatecoupon != null" >
+        #{debtamountRatecoupon,jdbcType=DECIMAL},
+      </if>
+      <if test="debtamountPrincipal != null" >
+        #{debtamountPrincipal,jdbcType=DECIMAL},
+      </if>
+      <if test="debtamountInterest != null" >
+        #{debtamountInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="bindIdStatus != null" >
+        #{bindIdStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="bindId != null" >
+        #{bindId,jdbcType=VARCHAR},
+      </if>
+      <if test="smsMobile != null" >
+        #{smsMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="caseDough != null" >
+        #{caseDough,jdbcType=DECIMAL},
+      </if>
+      <if test="privateMoney != null" >
+        #{privateMoney,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fuhui.mybatis.generator.model.Account" >
+    update account
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="balance2 != null" >
+        balance2 = #{balance2,jdbcType=DECIMAL},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="bonus != null" >
+        bonus = #{bonus,jdbcType=DECIMAL},
+      </if>
+      <if test="bonus2 != null" >
+        bonus2 = #{bonus2,jdbcType=DECIMAL},
+      </if>
+      <if test="debtamount != null" >
+        debtamount = #{debtamount,jdbcType=DECIMAL},
+      </if>
+      <if test="totalPrincipal != null" >
+        total_principal = #{totalPrincipal,jdbcType=DECIMAL},
+      </if>
+      <if test="totalInterest != null" >
+        total_interest = #{totalInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="totalRecharge != null" >
+        total_recharge = #{totalRecharge,jdbcType=DECIMAL},
+      </if>
+      <if test="totalWithdraw != null" >
+        total_withdraw = #{totalWithdraw,jdbcType=DECIMAL},
+      </if>
+      <if test="lastupdated != null" >
+        lastupdated = #{lastupdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bankcode != null" >
+        bankcode = #{bankcode,jdbcType=INTEGER},
+      </if>
+      <if test="defaultCardno != null" >
+        default_cardno = #{defaultCardno,jdbcType=VARCHAR},
+      </if>
+      <if test="newbiePrincipal != null" >
+        newbie_principal = #{newbiePrincipal,jdbcType=DECIMAL},
+      </if>
+      <if test="lastPrincipal != null" >
+        last_principal = #{lastPrincipal,jdbcType=DECIMAL},
+      </if>
+      <if test="autoInvestorpayment != null" >
+        auto_investorpayment = #{autoInvestorpayment,jdbcType=TINYINT},
+      </if>
+      <if test="freewithdrawCounts != null" >
+        freewithdraw_counts = #{freewithdrawCounts,jdbcType=TINYINT},
+      </if>
+      <if test="pwd != null" >
+        pwd = #{pwd,jdbcType=CHAR},
+      </if>
+      <if test="degree != null" >
+        degree = #{degree,jdbcType=TINYINT},
+      </if>
+      <if test="degreeExpire != null" >
+        degree_expire = #{degreeExpire,jdbcType=TIMESTAMP},
+      </if>
+      <if test="freezeWithdraw != null" >
+        freeze_withdraw = #{freezeWithdraw,jdbcType=DECIMAL},
+      </if>
+      <if test="freezeBuy != null" >
+        freeze_buy = #{freezeBuy,jdbcType=DECIMAL},
+      </if>
+      <if test="sign != null" >
+        sign = #{sign,jdbcType=CHAR},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=TINYINT},
+      </if>
+      <if test="bindFlag != null" >
+        bind_flag = #{bindFlag,jdbcType=TINYINT},
+      </if>
+      <if test="bindMobile != null" >
+        bind_mobile = #{bindMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="bindBanktype != null" >
+        bind_banktype = #{bindBanktype,jdbcType=TINYINT},
+      </if>
+      <if test="debtamountRatecoupon != null" >
+        debtamount_ratecoupon = #{debtamountRatecoupon,jdbcType=DECIMAL},
+      </if>
+      <if test="debtamountPrincipal != null" >
+        debtamount_principal = #{debtamountPrincipal,jdbcType=DECIMAL},
+      </if>
+      <if test="debtamountInterest != null" >
+        debtamount_interest = #{debtamountInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="bindIdStatus != null" >
+        bind_id_status = #{bindIdStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="bindId != null" >
+        bind_id = #{bindId,jdbcType=VARCHAR},
+      </if>
+      <if test="smsMobile != null" >
+        sms_mobile = #{smsMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="caseDough != null" >
+        case_dough = #{caseDough,jdbcType=DECIMAL},
+      </if>
+      <if test="privateMoney != null" >
+        private_money = #{privateMoney,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fuhui.mybatis.generator.model.Account" >
+    update account
+    set userid = #{userid,jdbcType=BIGINT},
+      type = #{type,jdbcType=TINYINT},
+      state = #{state,jdbcType=TINYINT},
+      balance2 = #{balance2,jdbcType=DECIMAL},
+      balance = #{balance,jdbcType=DECIMAL},
+      bonus = #{bonus,jdbcType=DECIMAL},
+      bonus2 = #{bonus2,jdbcType=DECIMAL},
+      debtamount = #{debtamount,jdbcType=DECIMAL},
+      total_principal = #{totalPrincipal,jdbcType=DECIMAL},
+      total_interest = #{totalInterest,jdbcType=DECIMAL},
+      total_recharge = #{totalRecharge,jdbcType=DECIMAL},
+      total_withdraw = #{totalWithdraw,jdbcType=DECIMAL},
+      lastupdated = #{lastupdated,jdbcType=TIMESTAMP},
+      bankcode = #{bankcode,jdbcType=INTEGER},
+      default_cardno = #{defaultCardno,jdbcType=VARCHAR},
+      newbie_principal = #{newbiePrincipal,jdbcType=DECIMAL},
+      last_principal = #{lastPrincipal,jdbcType=DECIMAL},
+      auto_investorpayment = #{autoInvestorpayment,jdbcType=TINYINT},
+      freewithdraw_counts = #{freewithdrawCounts,jdbcType=TINYINT},
+      pwd = #{pwd,jdbcType=CHAR},
+      degree = #{degree,jdbcType=TINYINT},
+      degree_expire = #{degreeExpire,jdbcType=TIMESTAMP},
+      freeze_withdraw = #{freezeWithdraw,jdbcType=DECIMAL},
+      freeze_buy = #{freezeBuy,jdbcType=DECIMAL},
+      sign = #{sign,jdbcType=CHAR},
+      flag = #{flag,jdbcType=TINYINT},
+      bind_flag = #{bindFlag,jdbcType=TINYINT},
+      bind_mobile = #{bindMobile,jdbcType=VARCHAR},
+      bind_banktype = #{bindBanktype,jdbcType=TINYINT},
+      debtamount_ratecoupon = #{debtamountRatecoupon,jdbcType=DECIMAL},
+      debtamount_principal = #{debtamountPrincipal,jdbcType=DECIMAL},
+      debtamount_interest = #{debtamountInterest,jdbcType=DECIMAL},
+      bind_id_status = #{bindIdStatus,jdbcType=VARCHAR},
+      bind_id = #{bindId,jdbcType=VARCHAR},
+      sms_mobile = #{smsMobile,jdbcType=VARCHAR},
+      case_dough = #{caseDough,jdbcType=DECIMAL},
+      private_money = #{privateMoney,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

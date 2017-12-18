@@ -1,0 +1,62 @@
+package com.fuhui.controller;
+
+import com.alibaba.fastjson.JSONObject;
+import com.fuhui.common.entity.QueryCondition;
+import com.fuhui.service.ManPlaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.text.ParseException;
+
+/**
+ * @author : xufanglong
+ * @Description:用户平台的添加及变更
+ * @Date: create in 10:30 2017/12/7
+ * @Modified By:
+ */
+
+@Controller
+public class ManplatController {
+
+    @Autowired
+    private ManPlaService manPlaService;
+
+    /**
+     * 平台总览列表
+     * @param req
+     * @param res
+     * @param queryCondition
+     * @return
+     */
+    @RequestMapping("/platform")
+    public ModelAndView ManangePlatformList(HttpServletRequest req, HttpServletResponse res, QueryCondition queryCondition) throws ParseException {
+        ModelAndView model=new ModelAndView("userlist");
+//        manUserService.getFhUserList(req,model,queryCondition);
+        return model;
+    }
+
+    /**
+     * 用户的列表的展示页面(条件筛选查询)
+     * @param req
+     * @param res
+     * @param queryCondition
+     * @return
+     */
+    @RequestMapping("/findplatformlist")
+    @ResponseBody
+    public Object FindManangePlatformList(HttpServletRequest req,HttpServletResponse res, QueryCondition queryCondition) throws ParseException {
+        ModelAndView model = new ModelAndView();
+        JSONObject obj = new JSONObject();
+        manPlaService.getPlaList(req,model,queryCondition);
+        obj.put("total",model.getModel().get("total"));
+        obj.put("list",model.getModel().get("list"));
+        obj.put("page",model.getModel().get("page"));
+        return obj;
+    }
+
+}

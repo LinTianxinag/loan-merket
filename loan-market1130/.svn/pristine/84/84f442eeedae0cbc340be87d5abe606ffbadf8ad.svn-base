@@ -1,0 +1,25 @@
+
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>贷款超市－数据中心</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link rel="stylesheet" type="text/css" href="../css/reset.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/ucenter.css">
+    <link rel="stylesheet" type="text/css" href="../css/respond.css">
+    <link rel="stylesheet" media="all" type="text/css" href="../css/jquery-ui-1.10.4.custom.min.css" />
+    <link rel="stylesheet" media="all" type="text/css" href="../css/jquery-ui-timepicker-addon.css" />
+    <link rel="stylesheet" href="../css/layer.css" id="layui_layer_skinlayercss" style=""></head>
+
+
+    <script src="../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/ucenterPublic.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/layer.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/json.parse.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/jquery.form.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/nslog.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="../js/jquery-ui-1.10.4.custom.min.js"></script>
+    <script type="text/javascript" src="../js/jquery-ui-timepicker-addon.js"></script>
+    <script type="text/javascript" src="../js/jquery-ui-timepicker-zh-CN.js"></script>
+
+</html>

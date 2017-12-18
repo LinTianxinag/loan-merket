@@ -1,0 +1,470 @@
+<!-- saved from url=(0026)https://www.juhe.cn/myData -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>贷款超市－数据中心</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link rel="stylesheet" type="text/css" href="../css/reset.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/ucenter.css">
+    <link rel="stylesheet" type="text/css" href="../css/respond.css">
+    <link rel="stylesheet" media="all" type="text/css" href="../css/jquery-ui-1.10.4.custom.min.css" />
+    <link rel="stylesheet" media="all" type="text/css" href="../css/jquery-ui-timepicker-addon.css" />
+    <link rel="stylesheet" href="../css/layer.css" id="layui_layer_skinlayercss" style="">
+</head>
+
+<body>
+
+<header class="clearfix">
+    <h3 href="#" class="centerLogo" target="_blank" style="position:relative;"><img style="position:relative; left:-5px;"  alt="贷款超市管理平台"></h3>
+    <ul class="headerUl clearfix">
+        <li class="headerLi1">
+            <div class="headerInfo"><span>18069422113</span><i class="headerIcon1 centerIcon"></i></div>
+            <a class="centerLogout" href="javascript:logout();">退出登录</a>
+        </li>
+        <li>
+            <a class="headerContact" href="#" target="_blank">+ +</a>
+        </li>
+    </ul>
+    <style type="text/css">
+        *{
+            margin:0;
+            padding:0;
+        }
+        dl,dt,dd,ul,li{
+            list-style:none;
+        }
+        a{
+            text-decoration: none;
+        }
+        img{
+            border:0;
+        }
+
+        #jiekubox{
+            width:100%;
+            box-sizing:border-box;
+            padding-left:300px;
+            padding-top:100px;
+        }
+        .jiekutop{
+            padding-bottom:48px;
+        }
+        .jiekutop h2{
+            width:100%;
+            height:50px;
+            line-height:50px;
+            color:#000;
+            font-size:20px;
+            font-weight:bold;
+        }
+        .jiekutop_cont{
+            width:100%;
+            box-sizing:border-box;
+            padding-left:30px;
+        }
+        .jiekutopCont1{
+            width:100%;
+            height:30px;
+            overflow:hidden;
+        }
+        .jiekutopCont1_left{
+            width:121px;
+            height:30px;
+            line-height:30px;
+            float:left;
+            font-size:15px;
+            color:#333;
+        }
+        .jiekutopCont1_right{
+            width:400px;
+            height:30px;
+            line-height:30px;
+            float:left;
+            font-size:15px;
+            color:#333;
+        }
+
+        .jiekumiddle h2{
+            width:100%;
+            height:50px;
+            line-height:50px;
+            color:#000;
+            font-size:20px;
+            font-weight:bold;
+        }
+        .jiekumiddle_one{
+            width:750px;
+            box-sizing:border-box;
+            padding-left:30px;
+            height:70px;
+        }
+
+        .jiekumiddle_two{
+            width:750px;
+            height:145px;
+            box-sizing:border-box;
+            padding-left:30px;
+            overflow:hidden;
+        }
+        .jiekumiddle_oneleft{
+            width:120px;
+            height:145px;
+            line-height:32px;
+            font-size:15px;
+            color:#333;
+            float:left;
+            font-weight:bold;
+        }
+        .jiekumiddle_oneright{
+            width:580px;
+            height:142px;
+            line-height:20px;
+            font-size:15px;
+            color:#333;
+            float:left;
+        }
+
+        .jiekudown h2{
+            width:100%;
+            height:50px;
+            line-height:50px;
+            color:#000;
+            font-size:20px;
+            font-weight:bold;
+        }
+        .jiekudown_wrap{
+            width:100%;
+            box-sizing:border-box;
+            padding-left:30px;
+        }
+        .jiekudown1{
+            width:100%;
+            height:30px;
+            overflow:hidden;
+        }
+        .jiekud1_left{
+            width:122px;
+            height:30px;
+            line-height:30px;
+            font-size:15px;
+            font-weight:bold;
+            color:#333;
+            float:left;
+        }
+        .jiekud1_right{
+            width:600px;
+            height:30px;
+            line-height:30px;
+            font-size:15px;
+            color:#333;
+            float:left;
+        }
+        .jiekudown2{
+            width:100%;
+            height:30px;
+            overflow:hidden;
+        }
+        .jiekud2_left{
+            width:122px;
+            height:30px;
+            line-height:30px;
+            font-size:15px;
+            font-weight:bold;
+            color:#333;
+            float:left;
+        }
+        .jiekud2_right{
+            width:600px;
+            height:30px;
+            line-height:30px;
+            font-size:15px;
+            color:#333;
+            float:left;
+        }
+        .jiekudown3{
+            width:100%;
+            height:30px;
+            overflow:hidden;
+        }
+        .jiekud3_left{
+            width:122px;
+            height:30px;
+            line-height:30px;
+            font-size:15px;
+            font-weight:bold;
+            color:#333;
+            float:left;
+        }
+        .jiekud3_right{
+            width:600px;
+            height:30px;
+            line-height:30px;
+            font-size:15px;
+            color:#333;
+            float:left;
+        }
+        .jiekudown4{
+            width:100%;
+            height:30px;
+            overflow:hidden;
+        }
+        .jiekud4_left{
+            width:122px;
+            height:30px;
+            line-height:30px;
+            font-size:15px;
+            font-weight:bold;
+            color:#333;
+            float:left;
+        }
+        .jiekud4_right{
+            width:600px;
+            height:30px;
+            line-height:30px;
+            font-size:15px;
+            color:#333;
+            float:left;
+        }
+        .jiekudown5{
+            width:100%;
+            height:50px;
+            overflow:hidden;
+        }
+        .jiekud5_left{
+            width:122px;
+            height:30px;
+            line-height:30px;
+            font-size:15px;
+            font-weight:bold;
+            color:#333;
+            float:left;
+        }
+        .jiekud5_right{
+            width:600px;
+            height:50px;
+            line-height:20px;
+            font-size:15px;
+            color:#333;
+            float:left;
+        }
+        .jiekudown6{
+            width:100%;
+            box-sizing:border-box;
+            padding-left:122px;
+            height:40px;
+            padding-top:20px;
+        }
+        .jiekubtn{
+            width:140px;
+            height:40px;
+            line-height:40px;
+            text-align:center;
+            font-size:16px;
+            color:#fff;
+            border-radius:4px;
+            background:#169bd5;
+            border:0;
+            -webkit-appearance:none;
+            cursor: pointer;
+        }
+        .reserr{
+            font-size: 14px;
+            color: red;
+        }
+    </style>
+
+</header>
+
+<!-- main start -->
+<div id="ucenterWrapper" class="ucenterWidth1 clearfix">
+    <nav>
+        <ul class="ucenterNav">
+            <li class="navIndex ">
+                <div class="navDiv">
+                    <a href="#"><i class="iconfont"></i>管理中心</a>
+                </div>
+            </li>
+            <li class="">
+                <div class="navDiv">
+                    <a href="/home"><i class="iconfont"></i>平台总览</a>
+                </div>
+            </li>
+            <li class="">
+                <div class="navDiv">
+                    <a href="/userlist"><i class="iconfont"></i>用户列表</a>
+                </div>
+            </li>
+            <li class="navInfoLi">
+                <span class="ucenterParent"><i class="iconfont"></i>数据中心<i class="centerIcon subDown"></i></span>
+                <ul class="ucenterSub" style="display: none;">
+                    <li class=""><a href="/addplat"><i class="iconfont"></i>平台新增</a></li>
+                    <li class=""><a href="#"><i class="iconfont"></i>待添加</a></li>
+                </ul>
+            </li>
+            <li class="navInfoLi">
+                <span id="ucenterSubA" class="ucenterParent"><i class="iconfont"></i>用户中心<i class="centerIcon subDown"></i></span>
+                <ul class="ucenterSub">
+                    <li class=""><a href="/admincenter"><i class="iconfont"></i>管理员列表</a></li>
+                    <li class=""><a href="/addSysUser"><i class="iconfont"></i>管理员添加</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- main content start -->
+    <body>
+    <form id="formid" method="post"  action = "/addSysUserDate">
+    <div id="jiekubox">
+        <div class="jiekutop" style="margin-left: 30%;">
+            <h2>平台用户</h2>
+            <div class="jiekutop_cont" >
+                <div class="jiekutopCont1" style="height: 50px" >
+                    <div class="jiekutopCont1_left" style="font-size: 20px" >登录名字</div>
+                    <div class="jiekutopCont1_right">
+                        <input type="text"  placeholder="" name="loginName" id="login_name" style="height: 100%;width: 70%"/>
+                        <span class="login_name_err" style="font-size: 20px;color: red"></span>
+                    </div>
+                </div>
+                <div class="jiekutopCont1" style="height: 50px">
+                    <div class="jiekutopCont1_left" style="font-size: 20px" >真实名字</div>
+                    <div class="jiekutopCont1_right">
+                        <input type="text"  placeholder="" name="realName" id="real_name" style="height: 100%;width: 70%"/>
+                        <span class="real_name_err" style="font-size: 20px;color: red"></span>
+                    </div>
+                </div>
+                <div class="jiekutopCont1" style="height: 50px">
+                    <div class="jiekutopCont1_left" style="font-size: 20px" >密码</div>
+                    <div class="jiekutopCont1_right">
+                        <input type="text"  placeholder="" name="userPwd" id="pwd" style="height: 100%;width: 70%"/>
+                        <span class="pwd_err" style="font-size: 20px;color: red"></span>
+                    </div>
+                </div style="height: 50px">
+                <div class="jiekutopCont1" style="height: 50px">
+                    <div class="jiekutopCont1_left" style="font-size: 20px" >手机号</div>
+                    <div class="jiekutopCont1_right">
+                        <input type="text"  placeholder="" name="mobile" id="mobile" style="height: 100%;width: 70%"/>
+                        <span class="mobile_err" style="font-size: 20px;color: red"></span>
+                    </div>
+                </div>
+                <div class="jiekutopCont1" style="height: 50px">
+                    <div class="jiekutopCont1_left" style="font-size: 20px">岗位</div>
+                    <div class="jiekutopCont1_right">
+                        <input type="text"  placeholder="" name="job" id="job" style="height: 100%;width: 70%"/>
+                        <span class="job_err" style="font-size: 20px;color: red"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="jiekudown6" style="margin-left: 30%">
+            <input type="button"  class="jiekubtn" id="addSysUser" value="提交"/>
+        </div>
+    </div>
+    </form>
+    </body>
+    <!-- main content end -->
+</div>
+
+
+
+<script type="text/javascript">
+    $(function(){
+        $('#platname').on('blur',function () {
+            var platname=$('#platname').val();
+            if(platname==""){
+                $('.reserr').text("不能为空");
+            }else{
+                $('.reserr').text("");
+                $.ajax({
+                    url:'/plat/namecheck',
+                    type:'get',
+                    dataType:'json',
+                    data:{platname:platname},
+                    success:function(data){
+                        if(data.status==100){
+                            $('.reserr').text("都说了不要重复");
+                        }else{
+                            $('.reserr').text("");
+                        }
+                    }
+                })
+            }
+        })
+        $('#login_name').on('blur',function () {
+            var login_name=$('#login_name').val();
+            if(login_name==""){
+                $('.login_name_err').text("不能为空");
+            }else{
+                $('.login_name_err').text("");
+            }
+        })
+        $('#real_name').on('blur',function () {
+            var real_name=$('#real_name').val();
+            if(real_name==""){
+                $('.real_name_err').text("不能为空");
+            }else{
+                $('.real_name_err').text("");
+            }
+        })
+        $('#pwd').on('blur',function () {
+            var pwd=$('#pwd').val();
+            if(pwd==""){
+                $('.pwd_err').text("不能为空");
+            }else{
+                $('.pwd_err').text("");
+            }
+        })
+        $('#mobile').on('blur',function () {
+            var mobile=$('#mobile').val();
+            if(mobile==""){
+                $('.mobile_err').text("不能为空");
+            }else{
+                $('.mobile_err').text("");
+            }
+        })
+        $('#job').on('blur',function () {
+            var job=$('#job').val();
+            if(job==""){
+                $('.job_err').text("不能为空");
+            }else{
+                $('.job_err').text("");
+            }
+        })
+    })
+    $(document).ready(function () {
+        <#if status==0>
+            alert("添加失败");
+        </#if>
+    });
+
+    $('#addSysUser').click(function () {
+        var login_name=$('#login_name').val();
+        var real_name=$('#real_name').val();
+        var pwd=$('#pwd').val();
+        var mobile=$('#mobile').val();
+        var job=$('#job').val();
+        if(job==""||real_name==""||pwd==""||mobile==""||login_name==""){
+            alert("数据不能为空");
+            return;
+        }
+        if(!(/^\d*$/).test(pwd)){
+            alert("密码只能为数字");
+            return;
+        }
+        if(!(/^1[3|4|5|7|8][0-9]\d{8}$/).test(mobile)){
+            alert("手机格式错误");
+            return;
+        }
+        $('#formid').submit();
+
+    });
+
+</script>
+
+<script src="../js/ucenterPublic.js" type="text/javascript" charset="utf-8"></script>
+
+
+<style type="text/css">.layui-layer-tips .layui-layer-content{color: #666}</style>
+
+
+
+</body></html>

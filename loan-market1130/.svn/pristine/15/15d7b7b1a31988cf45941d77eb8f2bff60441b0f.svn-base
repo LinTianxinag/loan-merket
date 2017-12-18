@@ -1,0 +1,197 @@
+<#include "./header.ftl">
+
+<!-- main start -->
+<div id="ucenterWrapper" class="ucenterWidth1 clearfix">
+    <nav>
+        <ul class="ucenterNav">
+            <li class="navIndex ">
+                <div class="navDiv">
+                    <a href="#"><i class="iconfont"></i>管理中心</a>
+                </div>
+            </li>
+            <li class="">
+                <div class="navDiv">
+                    <a href="/home"><i class="iconfont"></i>平台总览</a>
+                </div>
+            </li>
+            <li class="">
+                <div class="navDiv">
+                    <a href="/userlist"><i class="iconfont"></i>用户列表</a>
+                </div>
+            </li>
+            <li class="navInfoLi">
+                <span class="ucenterParent"><i class="iconfont"></i>数据中心<i class="centerIcon subDown"></i></span>
+                <ul class="ucenterSub" style="display: none;">
+                    <li class=""><a href="/addplat"><i class="iconfont"></i>平台新增</a></li>
+                    <li class=""><a href="#"><i class="iconfont"></i>待添加</a></li>
+                </ul>
+            </li>
+            <li class="navInfoLi">
+                <span id="ucenterSubA" class="ucenterParent"><i class="iconfont"></i>用户中心<i class="centerIcon subDown"></i></span>
+                <ul class="ucenterSub">
+                    <li class=""><a href="/admincenter"><i class="iconfont"></i>管理员列表</a></li>
+                    <li class=""><a href="#"><i class="iconfont"></i>待添加</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- main content start -->
+    <section id="ucenterSection">
+        <h1 class="purchaseTabUl clearfix newWorkTab">
+            浏览详情：${user.mobile}
+            <#--<li class="active">-->
+                <#--<a href="#">全部数据</a>-->
+            <#--</li>-->
+            <#--<li class="">-->
+                <#--<a href="#">已导流</a>-->
+            <#--</li>-->
+            <#--<li class="">-->
+                <#--<a href="#">未导流</a>-->
+            <#--</li>-->
+        </h1>
+        <div>
+            <div id="seek1512371123288" class="search" style="clear:both">
+
+                关键字：<input type="text" id="keyword" placeholder="ID、平台名搜索" tar="name" class="w300 gray-small" venter="button[name=seek]" style="width:170px ">
+                <label>浏览时间：</label>
+                <input type="" id="startTime" placeholder="起始时间" value="" name="startTime" readonly="readonly" class="laydate-icon inputText">
+                <span>&nbsp;至&nbsp;</span>
+                <input type="" id="endTime" placeholder="截止时间" value="" name="endTime" readonly="readonly" class="laydate-icon inputText">
+                <#--申请结果：-->
+                <#--<select id="isreal" name="isreal" tar="isreal">-->
+                <#--<option value="">请选择</option>-->
+                <#--<option value="1">已上架</option>-->
+                <#--<option value="0">已下架</option>-->
+                <#--</select>-->
+                <button class="addSomeBtn addBtnFora" name="seek" class="find" id="find" onclick="findSubmit()" style="background-color: #00a7f2;color: #FFFFFF">查询</button>
+                <button class="addSomeBtn addBtnFora" name="seek" class="find" onclick="findSubmit(1)">查询今天</button>
+                <button class="addSomeBtn addBtnFora" name="seek" class="find" onclick="findSubmit(2)">查询昨天</button>
+            </div>
+        </div>
+        <div>
+            <div id="seek1512371123288" class="search" style="clear:both">
+                总浏览次数:<a style="color: red" id="count">${total}</a>次
+            </div>
+        </div>
+        <table class="nantable" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+            <tr class="nanTableTh">
+                <th width="5%">ID</th>
+                <th width="10%">平台名称</th>
+                <th width="10%">浏览时间</th>
+            </tr>
+            </tbody>
+        </table>
+        <table class="ucenterTableSub" border="0" cellspacing="0" cellpadding="0">
+            <tbody id="userlist">
+            <#list list as details>
+            <tr class="userlist">
+                <td width="5%">${details.plaid}</td>
+                <td width="10%">${details.planame}</td>
+                <td width="10%">${details.browsing_time}</td>
+            </tr>
+            </#list>
+            </tbody>
+        </table>
+
+
+    </section>
+    <!-- main content end -->
+</div>
+<input id="uid" type="hidden" value="0"/>
+
+
+<script src="../js/ucenterPublic.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/layer.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/json.parse.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery.form.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/nslog.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="../js/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript" src="../js/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="../js/jquery-ui-timepicker-zh-CN.js"></script>
+
+
+<script>
+
+    var uid = ${user.id}
+    function findSubmit(flag){
+
+        var keyword = $("#keyword").val();
+        var startTime = $("#startTime").val();
+        var endTime = $("#endTime").val();
+        var query = {keyword:keyword,starttime:startTime,endtime:endTime};
+        if(flag == 1){
+            $.extend(query,{isQueryToday:1})
+        }else if(flag == 2){
+            $.extend(query,{isQueryYesterday:1})
+        }
+        if(uid != null){
+            $("#uid").val(uid);
+        }
+        $.extend(query,{uid:$("#uid").val()})
+        $.ajax({
+            url:'/finduserdetails',
+            type:'POST',
+            data:query,
+            success:function(res){
+                $("#userlist").children().remove();
+                $("#count").text(res.total);
+                var html = "";
+                var list = res.list;
+                var page = res.page;
+                for(var i = 0;i < list.length;i++){
+                    html += '<tr class="userlist">'
+                            +'<td width="5%">'+list[i].plaid+'</td>'
+                            +'<td width="10%">'+list[i].planame+'</td>'
+                            +'<td width="10%">'+new Date(parseInt(list[i].browsing_time)).format("yyyy-MM-dd hh:mm:ss")+'</td></tr>';
+                }
+                $("#userlist").append(html);
+            }
+        })
+
+    }
+
+
+</script>
+<script>
+    $(function () {
+        $("#startTime").jeDate({
+            format: "YYYY-MM-DD hh:mm"
+        })
+        $("#endTime").jeDate({
+            format: "YYYY-MM-DD hh:mm"
+        })
+    })
+    //    var start = {
+    //        format: 'YYYY-MM-DD hh:mm:ss',
+    //        minDate: '2017-12-4 23:59:59', //设定最小日期为当前日期
+    //        isinitVal:true,
+    //        maxDate: $.nowDate({DD:0}), //最大日期
+    //        okfun: function(obj){
+    //            end.minDate = obj.val; //开始日选好后，重置结束日的最小日期
+    //            endDates();
+    //        }
+    //    };
+    //    var end = {
+    //        format: 'YYYY年MM月DD日 hh:mm:ss',
+    //        minDate: $.nowDate({DD:0}), //设定最小日期为当前日期
+    //        maxDate: '2099-06-16 23:59:59', //最大日期
+    //        okfun: function(obj){
+    //            start.maxDate = obj.val; //将结束日的初始值设定为开始日的最大日期
+    //        }
+    //    };
+    //    //这里是日期联动的关键
+    //    function endDates() {
+    //        //将结束日期的事件改成 false 即可
+    //        end.trigger = false;
+    //        $("#endTime").jeDate(end);
+    //    }
+    //    $('#startTime').jeDate(start);
+    //    $('#endTime').jeDate(end);
+
+</script>
+<#include "./bottom.ftl">
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+package com.fuhui.service.impl;
+
+import com.fuhui.service.SmsService;
+import org.springframework.stereotype.Service;
+
+/**
+ * @author : xufanglong
+ * @Description:短信发送的实现类
+ * @Date: create in 13:05 2017/12/1
+ * @Modified By:
+ */
+@Service
+public class SmsServiceImpl implements SmsService{
+
+}

@@ -1,0 +1,30 @@
+package com.fuhui.controller;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * @author : xufanglong
+ * @Description:api接口和后台管理通用的写在此处
+ * @Date: create in 16:27 2017/11/30
+ * @Modified By:
+ */
+@RestController
+public class CommonController {
+
+    /**
+     * 发送短信的功能
+     * @param request
+     * @param response
+     * @return
+     */
+    @PostMapping("/sendSms")
+    public String SendSms(HttpServletRequest request,HttpServletResponse response){
+
+        return "";
+
+    }
+}

@@ -1,0 +1,41 @@
+package com.fuhui.service.impl;
+
+import com.fuhui.mybatis.sys.dao.SysUserMapper;
+import com.fuhui.mybatis.sys.model.SysUser;
+import com.fuhui.service.ManLoginService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/**
+ * @author : xufanglong
+ * @Description:后台管理的方法
+ * @Date: create in 16:22 2017/12/2
+ * @Modified By:
+ */
+@Service
+public class ManLoginServiceImpl implements ManLoginService {
+
+    @Autowired
+    private SysUserMapper sysUserMapper;
+    /**
+     * 验证登陆
+     * @return
+     */
+    @Override
+    public SysUser checkAdmin(SysUser sysUser) {
+        return sysUserMapper.selectUser(sysUser);
+    }
+
+    /**
+     * 获取管理员列表
+     * @param sysUser
+     * @return
+     */
+    @Override
+    public List<SysUser> getAdminList(SysUser sysUser) {
+
+        return null;
+    }
+}

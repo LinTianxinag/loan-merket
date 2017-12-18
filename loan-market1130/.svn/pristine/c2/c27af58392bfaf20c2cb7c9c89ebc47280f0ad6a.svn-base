@@ -1,0 +1,33 @@
+<nav>
+    <ul class="ucenterNav">
+        <li class="navIndex ">
+            <div class="navDiv">
+                <h3 class="iconfont" style="color: white ;text-align: center" >管理中心</h3>
+            </div>
+        </li>
+        <li class="">
+            <div class="navDiv">
+                <a href="/home"><i class="iconfont"></i>平台总览</a>
+            </div>
+        </li>
+        <li class="">
+            <div class="navDiv">
+                <a href="/userlist"><i class="iconfont"></i>用户列表</a>
+            </div>
+        </li>
+        <li class="navInfoLi">
+            <span class="ucenterParent"><i class="iconfont"></i>数据中心<i class="centerIcon subDown"></i></span>
+            <ul class="ucenterSub" style="display: none;">
+                <li class=""><a href="/addplat"><i class="iconfont"></i>平台新增</a></li>
+                <li class=""><a href="#"><i class="iconfont"></i>待添加</a></li>
+            </ul>
+        </li>
+        <li class="navInfoLi">
+            <span id="ucenterSubA" class="ucenterParent"><i class="iconfont"></i>用户中心<i class="centerIcon subDown"></i></span>
+            <ul class="ucenterSub">
+                <li class=""><a href="/admincenter"><i class="iconfont"></i>管理员列表</a></li>
+                <li class=""><a href="/addSysUser"><i class="iconfont"></i>添加管理用户</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>

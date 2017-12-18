@@ -1,0 +1,16 @@
+
+#这是沃动短信的配置模块
+
+#短信的发送的名称（标题）
+
+#短信的请求地址
+wodong_url=http://client.movek.net:8888/sms.aspx
+
+#短信的账户
+wodong_account=SDK-A1127-1127
+
+#短信的密码
+wodong_pwd=213174
+
+#短信的账户
+wodong_userid=1127

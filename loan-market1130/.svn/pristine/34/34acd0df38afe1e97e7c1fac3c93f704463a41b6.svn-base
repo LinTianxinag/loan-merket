@@ -1,0 +1,23 @@
+package com.fuhui.service;
+
+import com.fuhui.common.entity.QueryCondition;
+import com.fuhui.mybatis.generator.model.FhUser;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
+/**
+ *  用户信息业务操作
+ * Created by Ren
+ * time:2017/12/4.13:17
+ */
+public interface ManUserService {
+    /**
+     * 获取用户列表
+     * @param queryCondition
+     * @return List<FhUser>
+     */
+    List<FhUser> getFhUserList(HttpServletRequest req, ModelAndView model, QueryCondition queryCondition);
+
+}

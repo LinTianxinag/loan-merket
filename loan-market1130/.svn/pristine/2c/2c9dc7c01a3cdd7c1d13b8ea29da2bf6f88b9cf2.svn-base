@@ -1,0 +1,535 @@
+package com.fuhui.mybatis.generator.model;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
+
+public class Account implements Serializable {
+    private Long id;
+
+    private Long userid;
+
+    private Byte type;
+
+    private Byte state;
+
+    private BigDecimal balance2;
+
+    private BigDecimal balance;
+
+    private BigDecimal bonus;
+
+    private BigDecimal bonus2;
+
+    private BigDecimal debtamount;
+
+    private BigDecimal totalPrincipal;
+
+    private BigDecimal totalInterest;
+
+    private BigDecimal totalRecharge;
+
+    private BigDecimal totalWithdraw;
+
+    private Date lastupdated;
+
+    private Integer bankcode;
+
+    private String defaultCardno;
+
+    private BigDecimal newbiePrincipal;
+
+    private BigDecimal lastPrincipal;
+
+    private Byte autoInvestorpayment;
+
+    private Byte freewithdrawCounts;
+
+    private String pwd;
+
+    private Byte degree;
+
+    private Date degreeExpire;
+
+    private BigDecimal freezeWithdraw;
+
+    private BigDecimal freezeBuy;
+
+    private String sign;
+
+    private Byte flag;
+
+    private Byte bindFlag;
+
+    private String bindMobile;
+
+    private Byte bindBanktype;
+
+    private BigDecimal debtamountRatecoupon;
+
+    private BigDecimal debtamountPrincipal;
+
+    private BigDecimal debtamountInterest;
+
+    private String bindIdStatus;
+
+    private String bindId;
+
+    private String smsMobile;
+
+    private BigDecimal caseDough;
+
+    private BigDecimal privateMoney;
+
+    private static final long serialVersionUID = 1L;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Long userid) {
+        this.userid = userid;
+    }
+
+    public Byte getType() {
+        return type;
+    }
+
+    public void setType(Byte type) {
+        this.type = type;
+    }
+
+    public Byte getState() {
+        return state;
+    }
+
+    public void setState(Byte state) {
+        this.state = state;
+    }
+
+    public BigDecimal getBalance2() {
+        return balance2;
+    }
+
+    public void setBalance2(BigDecimal balance2) {
+        this.balance2 = balance2;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+
+    public BigDecimal getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(BigDecimal bonus) {
+        this.bonus = bonus;
+    }
+
+    public BigDecimal getBonus2() {
+        return bonus2;
+    }
+
+    public void setBonus2(BigDecimal bonus2) {
+        this.bonus2 = bonus2;
+    }
+
+    public BigDecimal getDebtamount() {
+        return debtamount;
+    }
+
+    public void setDebtamount(BigDecimal debtamount) {
+        this.debtamount = debtamount;
+    }
+
+    public BigDecimal getTotalPrincipal() {
+        return totalPrincipal;
+    }
+
+    public void setTotalPrincipal(BigDecimal totalPrincipal) {
+        this.totalPrincipal = totalPrincipal;
+    }
+
+    public BigDecimal getTotalInterest() {
+        return totalInterest;
+    }
+
+    public void setTotalInterest(BigDecimal totalInterest) {
+        this.totalInterest = totalInterest;
+    }
+
+    public BigDecimal getTotalRecharge() {
+        return totalRecharge;
+    }
+
+    public void setTotalRecharge(BigDecimal totalRecharge) {
+        this.totalRecharge = totalRecharge;
+    }
+
+    public BigDecimal getTotalWithdraw() {
+        return totalWithdraw;
+    }
+
+    public void setTotalWithdraw(BigDecimal totalWithdraw) {
+        this.totalWithdraw = totalWithdraw;
+    }
+
+    public Date getLastupdated() {
+        return lastupdated;
+    }
+
+    public void setLastupdated(Date lastupdated) {
+        this.lastupdated = lastupdated;
+    }
+
+    public Integer getBankcode() {
+        return bankcode;
+    }
+
+    public void setBankcode(Integer bankcode) {
+        this.bankcode = bankcode;
+    }
+
+    public String getDefaultCardno() {
+        return defaultCardno;
+    }
+
+    public void setDefaultCardno(String defaultCardno) {
+        this.defaultCardno = defaultCardno == null ? null : defaultCardno.trim();
+    }
+
+    public BigDecimal getNewbiePrincipal() {
+        return newbiePrincipal;
+    }
+
+    public void setNewbiePrincipal(BigDecimal newbiePrincipal) {
+        this.newbiePrincipal = newbiePrincipal;
+    }
+
+    public BigDecimal getLastPrincipal() {
+        return lastPrincipal;
+    }
+
+    public void setLastPrincipal(BigDecimal lastPrincipal) {
+        this.lastPrincipal = lastPrincipal;
+    }
+
+    public Byte getAutoInvestorpayment() {
+        return autoInvestorpayment;
+    }
+
+    public void setAutoInvestorpayment(Byte autoInvestorpayment) {
+        this.autoInvestorpayment = autoInvestorpayment;
+    }
+
+    public Byte getFreewithdrawCounts() {
+        return freewithdrawCounts;
+    }
+
+    public void setFreewithdrawCounts(Byte freewithdrawCounts) {
+        this.freewithdrawCounts = freewithdrawCounts;
+    }
+
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd == null ? null : pwd.trim();
+    }
+
+    public Byte getDegree() {
+        return degree;
+    }
+
+    public void setDegree(Byte degree) {
+        this.degree = degree;
+    }
+
+    public Date getDegreeExpire() {
+        return degreeExpire;
+    }
+
+    public void setDegreeExpire(Date degreeExpire) {
+        this.degreeExpire = degreeExpire;
+    }
+
+    public BigDecimal getFreezeWithdraw() {
+        return freezeWithdraw;
+    }
+
+    public void setFreezeWithdraw(BigDecimal freezeWithdraw) {
+        this.freezeWithdraw = freezeWithdraw;
+    }
+
+    public BigDecimal getFreezeBuy() {
+        return freezeBuy;
+    }
+
+    public void setFreezeBuy(BigDecimal freezeBuy) {
+        this.freezeBuy = freezeBuy;
+    }
+
+    public String getSign() {
+        return sign;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign == null ? null : sign.trim();
+    }
+
+    public Byte getFlag() {
+        return flag;
+    }
+
+    public void setFlag(Byte flag) {
+        this.flag = flag;
+    }
+
+    public Byte getBindFlag() {
+        return bindFlag;
+    }
+
+    public void setBindFlag(Byte bindFlag) {
+        this.bindFlag = bindFlag;
+    }
+
+    public String getBindMobile() {
+        return bindMobile;
+    }
+
+    public void setBindMobile(String bindMobile) {
+        this.bindMobile = bindMobile == null ? null : bindMobile.trim();
+    }
+
+    public Byte getBindBanktype() {
+        return bindBanktype;
+    }
+
+    public void setBindBanktype(Byte bindBanktype) {
+        this.bindBanktype = bindBanktype;
+    }
+
+    public BigDecimal getDebtamountRatecoupon() {
+        return debtamountRatecoupon;
+    }
+
+    public void setDebtamountRatecoupon(BigDecimal debtamountRatecoupon) {
+        this.debtamountRatecoupon = debtamountRatecoupon;
+    }
+
+    public BigDecimal getDebtamountPrincipal() {
+        return debtamountPrincipal;
+    }
+
+    public void setDebtamountPrincipal(BigDecimal debtamountPrincipal) {
+        this.debtamountPrincipal = debtamountPrincipal;
+    }
+
+    public BigDecimal getDebtamountInterest() {
+        return debtamountInterest;
+    }
+
+    public void setDebtamountInterest(BigDecimal debtamountInterest) {
+        this.debtamountInterest = debtamountInterest;
+    }
+
+    public String getBindIdStatus() {
+        return bindIdStatus;
+    }
+
+    public void setBindIdStatus(String bindIdStatus) {
+        this.bindIdStatus = bindIdStatus == null ? null : bindIdStatus.trim();
+    }
+
+    public String getBindId() {
+        return bindId;
+    }
+
+    public void setBindId(String bindId) {
+        this.bindId = bindId == null ? null : bindId.trim();
+    }
+
+    public String getSmsMobile() {
+        return smsMobile;
+    }
+
+    public void setSmsMobile(String smsMobile) {
+        this.smsMobile = smsMobile == null ? null : smsMobile.trim();
+    }
+
+    public BigDecimal getCaseDough() {
+        return caseDough;
+    }
+
+    public void setCaseDough(BigDecimal caseDough) {
+        this.caseDough = caseDough;
+    }
+
+    public BigDecimal getPrivateMoney() {
+        return privateMoney;
+    }
+
+    public void setPrivateMoney(BigDecimal privateMoney) {
+        this.privateMoney = privateMoney;
+    }
+
+    @Override
+    public boolean equals(Object that) {
+        if (this == that) {
+            return true;
+        }
+        if (that == null) {
+            return false;
+        }
+        if (getClass() != that.getClass()) {
+            return false;
+        }
+        Account other = (Account) that;
+        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getUserid() == null ? other.getUserid() == null : this.getUserid().equals(other.getUserid()))
+            && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
+            && (this.getState() == null ? other.getState() == null : this.getState().equals(other.getState()))
+            && (this.getBalance2() == null ? other.getBalance2() == null : this.getBalance2().equals(other.getBalance2()))
+            && (this.getBalance() == null ? other.getBalance() == null : this.getBalance().equals(other.getBalance()))
+            && (this.getBonus() == null ? other.getBonus() == null : this.getBonus().equals(other.getBonus()))
+            && (this.getBonus2() == null ? other.getBonus2() == null : this.getBonus2().equals(other.getBonus2()))
+            && (this.getDebtamount() == null ? other.getDebtamount() == null : this.getDebtamount().equals(other.getDebtamount()))
+            && (this.getTotalPrincipal() == null ? other.getTotalPrincipal() == null : this.getTotalPrincipal().equals(other.getTotalPrincipal()))
+            && (this.getTotalInterest() == null ? other.getTotalInterest() == null : this.getTotalInterest().equals(other.getTotalInterest()))
+            && (this.getTotalRecharge() == null ? other.getTotalRecharge() == null : this.getTotalRecharge().equals(other.getTotalRecharge()))
+            && (this.getTotalWithdraw() == null ? other.getTotalWithdraw() == null : this.getTotalWithdraw().equals(other.getTotalWithdraw()))
+            && (this.getLastupdated() == null ? other.getLastupdated() == null : this.getLastupdated().equals(other.getLastupdated()))
+            && (this.getBankcode() == null ? other.getBankcode() == null : this.getBankcode().equals(other.getBankcode()))
+            && (this.getDefaultCardno() == null ? other.getDefaultCardno() == null : this.getDefaultCardno().equals(other.getDefaultCardno()))
+            && (this.getNewbiePrincipal() == null ? other.getNewbiePrincipal() == null : this.getNewbiePrincipal().equals(other.getNewbiePrincipal()))
+            && (this.getLastPrincipal() == null ? other.getLastPrincipal() == null : this.getLastPrincipal().equals(other.getLastPrincipal()))
+            && (this.getAutoInvestorpayment() == null ? other.getAutoInvestorpayment() == null : this.getAutoInvestorpayment().equals(other.getAutoInvestorpayment()))
+            && (this.getFreewithdrawCounts() == null ? other.getFreewithdrawCounts() == null : this.getFreewithdrawCounts().equals(other.getFreewithdrawCounts()))
+            && (this.getPwd() == null ? other.getPwd() == null : this.getPwd().equals(other.getPwd()))
+            && (this.getDegree() == null ? other.getDegree() == null : this.getDegree().equals(other.getDegree()))
+            && (this.getDegreeExpire() == null ? other.getDegreeExpire() == null : this.getDegreeExpire().equals(other.getDegreeExpire()))
+            && (this.getFreezeWithdraw() == null ? other.getFreezeWithdraw() == null : this.getFreezeWithdraw().equals(other.getFreezeWithdraw()))
+            && (this.getFreezeBuy() == null ? other.getFreezeBuy() == null : this.getFreezeBuy().equals(other.getFreezeBuy()))
+            && (this.getSign() == null ? other.getSign() == null : this.getSign().equals(other.getSign()))
+            && (this.getFlag() == null ? other.getFlag() == null : this.getFlag().equals(other.getFlag()))
+            && (this.getBindFlag() == null ? other.getBindFlag() == null : this.getBindFlag().equals(other.getBindFlag()))
+            && (this.getBindMobile() == null ? other.getBindMobile() == null : this.getBindMobile().equals(other.getBindMobile()))
+            && (this.getBindBanktype() == null ? other.getBindBanktype() == null : this.getBindBanktype().equals(other.getBindBanktype()))
+            && (this.getDebtamountRatecoupon() == null ? other.getDebtamountRatecoupon() == null : this.getDebtamountRatecoupon().equals(other.getDebtamountRatecoupon()))
+            && (this.getDebtamountPrincipal() == null ? other.getDebtamountPrincipal() == null : this.getDebtamountPrincipal().equals(other.getDebtamountPrincipal()))
+            && (this.getDebtamountInterest() == null ? other.getDebtamountInterest() == null : this.getDebtamountInterest().equals(other.getDebtamountInterest()))
+            && (this.getBindIdStatus() == null ? other.getBindIdStatus() == null : this.getBindIdStatus().equals(other.getBindIdStatus()))
+            && (this.getBindId() == null ? other.getBindId() == null : this.getBindId().equals(other.getBindId()))
+            && (this.getSmsMobile() == null ? other.getSmsMobile() == null : this.getSmsMobile().equals(other.getSmsMobile()))
+            && (this.getCaseDough() == null ? other.getCaseDough() == null : this.getCaseDough().equals(other.getCaseDough()))
+            && (this.getPrivateMoney() == null ? other.getPrivateMoney() == null : this.getPrivateMoney().equals(other.getPrivateMoney()));
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        result = prime * result + ((getUserid() == null) ? 0 : getUserid().hashCode());
+        result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
+        result = prime * result + ((getState() == null) ? 0 : getState().hashCode());
+        result = prime * result + ((getBalance2() == null) ? 0 : getBalance2().hashCode());
+        result = prime * result + ((getBalance() == null) ? 0 : getBalance().hashCode());
+        result = prime * result + ((getBonus() == null) ? 0 : getBonus().hashCode());
+        result = prime * result + ((getBonus2() == null) ? 0 : getBonus2().hashCode());
+        result = prime * result + ((getDebtamount() == null) ? 0 : getDebtamount().hashCode());
+        result = prime * result + ((getTotalPrincipal() == null) ? 0 : getTotalPrincipal().hashCode());
+        result = prime * result + ((getTotalInterest() == null) ? 0 : getTotalInterest().hashCode());
+        result = prime * result + ((getTotalRecharge() == null) ? 0 : getTotalRecharge().hashCode());
+        result = prime * result + ((getTotalWithdraw() == null) ? 0 : getTotalWithdraw().hashCode());
+        result = prime * result + ((getLastupdated() == null) ? 0 : getLastupdated().hashCode());
+        result = prime * result + ((getBankcode() == null) ? 0 : getBankcode().hashCode());
+        result = prime * result + ((getDefaultCardno() == null) ? 0 : getDefaultCardno().hashCode());
+        result = prime * result + ((getNewbiePrincipal() == null) ? 0 : getNewbiePrincipal().hashCode());
+        result = prime * result + ((getLastPrincipal() == null) ? 0 : getLastPrincipal().hashCode());
+        result = prime * result + ((getAutoInvestorpayment() == null) ? 0 : getAutoInvestorpayment().hashCode());
+        result = prime * result + ((getFreewithdrawCounts() == null) ? 0 : getFreewithdrawCounts().hashCode());
+        result = prime * result + ((getPwd() == null) ? 0 : getPwd().hashCode());
+        result = prime * result + ((getDegree() == null) ? 0 : getDegree().hashCode());
+        result = prime * result + ((getDegreeExpire() == null) ? 0 : getDegreeExpire().hashCode());
+        result = prime * result + ((getFreezeWithdraw() == null) ? 0 : getFreezeWithdraw().hashCode());
+        result = prime * result + ((getFreezeBuy() == null) ? 0 : getFreezeBuy().hashCode());
+        result = prime * result + ((getSign() == null) ? 0 : getSign().hashCode());
+        result = prime * result + ((getFlag() == null) ? 0 : getFlag().hashCode());
+        result = prime * result + ((getBindFlag() == null) ? 0 : getBindFlag().hashCode());
+        result = prime * result + ((getBindMobile() == null) ? 0 : getBindMobile().hashCode());
+        result = prime * result + ((getBindBanktype() == null) ? 0 : getBindBanktype().hashCode());
+        result = prime * result + ((getDebtamountRatecoupon() == null) ? 0 : getDebtamountRatecoupon().hashCode());
+        result = prime * result + ((getDebtamountPrincipal() == null) ? 0 : getDebtamountPrincipal().hashCode());
+        result = prime * result + ((getDebtamountInterest() == null) ? 0 : getDebtamountInterest().hashCode());
+        result = prime * result + ((getBindIdStatus() == null) ? 0 : getBindIdStatus().hashCode());
+        result = prime * result + ((getBindId() == null) ? 0 : getBindId().hashCode());
+        result = prime * result + ((getSmsMobile() == null) ? 0 : getSmsMobile().hashCode());
+        result = prime * result + ((getCaseDough() == null) ? 0 : getCaseDough().hashCode());
+        result = prime * result + ((getPrivateMoney() == null) ? 0 : getPrivateMoney().hashCode());
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", userid=").append(userid);
+        sb.append(", type=").append(type);
+        sb.append(", state=").append(state);
+        sb.append(", balance2=").append(balance2);
+        sb.append(", balance=").append(balance);
+        sb.append(", bonus=").append(bonus);
+        sb.append(", bonus2=").append(bonus2);
+        sb.append(", debtamount=").append(debtamount);
+        sb.append(", totalPrincipal=").append(totalPrincipal);
+        sb.append(", totalInterest=").append(totalInterest);
+        sb.append(", totalRecharge=").append(totalRecharge);
+        sb.append(", totalWithdraw=").append(totalWithdraw);
+        sb.append(", lastupdated=").append(lastupdated);
+        sb.append(", bankcode=").append(bankcode);
+        sb.append(", defaultCardno=").append(defaultCardno);
+        sb.append(", newbiePrincipal=").append(newbiePrincipal);
+        sb.append(", lastPrincipal=").append(lastPrincipal);
+        sb.append(", autoInvestorpayment=").append(autoInvestorpayment);
+        sb.append(", freewithdrawCounts=").append(freewithdrawCounts);
+        sb.append(", pwd=").append(pwd);
+        sb.append(", degree=").append(degree);
+        sb.append(", degreeExpire=").append(degreeExpire);
+        sb.append(", freezeWithdraw=").append(freezeWithdraw);
+        sb.append(", freezeBuy=").append(freezeBuy);
+        sb.append(", sign=").append(sign);
+        sb.append(", flag=").append(flag);
+        sb.append(", bindFlag=").append(bindFlag);
+        sb.append(", bindMobile=").append(bindMobile);
+        sb.append(", bindBanktype=").append(bindBanktype);
+        sb.append(", debtamountRatecoupon=").append(debtamountRatecoupon);
+        sb.append(", debtamountPrincipal=").append(debtamountPrincipal);
+        sb.append(", debtamountInterest=").append(debtamountInterest);
+        sb.append(", bindIdStatus=").append(bindIdStatus);
+        sb.append(", bindId=").append(bindId);
+        sb.append(", smsMobile=").append(smsMobile);
+        sb.append(", caseDough=").append(caseDough);
+        sb.append(", privateMoney=").append(privateMoney);
+        sb.append(", serialVersionUID=").append(serialVersionUID);
+        sb.append("]");
+        return sb.toString();
+    }
+}

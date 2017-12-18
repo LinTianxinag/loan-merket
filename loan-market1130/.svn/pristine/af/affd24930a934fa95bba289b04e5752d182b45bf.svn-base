@@ -1,0 +1,94 @@
+package com.fuhui.controller;
+
+import com.alibaba.fastjson.JSONObject;
+import com.fuhui.annoation.ApiCheck;
+import com.fuhui.common.eunm.ErrorStatusEunm;
+import com.fuhui.common.util.RedisUtil;
+import com.fuhui.common.util.ResultUtil;
+import com.fuhui.mybatis.generator.model.SysUser;
+import com.fuhui.service.LoginService;
+import com.google.code.kaptcha.Constants;
+import com.google.code.kaptcha.Producer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
+
+/**
+ * @author : xufanglong
+ * @Description:登录，注册，获取验证码等功能写在此处
+ * @Date: create in 16:22 2017/11/30
+ * @Modified By:
+ */
+@RestController
+@RequestMapping("/api")
+public class LoginController {
+    @Autowired
+    private LoginService loginService;
+
+    /**
+     * 这是APP的验签错误的返回信息
+     * @param request
+     * @param response
+     * @return
+     */
+    @GetMapping ("/err")
+    public JSONObject ErrResult(HttpServletRequest request,HttpServletResponse response){
+        JSONObject object =new JSONObject();
+        object.put("status", 100);
+        object.put("msg","APP验签不通过");
+        return object;
+    }
+
+
+
+
+
+
+    /**
+     * app请求，注册方法，并带app验签
+     * @param request
+     * @param response
+     * @return
+     */
+    @PostMapping("/regist")
+    @ApiCheck
+    public JSONObject appRegister(HttpServletRequest request, HttpServletResponse response){
+        JSONObject obj=new JSONObject();
+        String mobile=request.getParameter("mobile");
+        String password=request.getParameter("password");
+        String code=request.getParameter("code");
+//        String checkcode=RedisUtil.get(request.getSession().getId()+Constants.KAPTCHA_SESSION_KEY);
+//        if(!checkcode.equals('"'+code+'"')){
+//            obj.put("status",ErrorStatusEunm.ERR_CODE.getValue());
+//            obj.put("msg",ErrorStatusEunm.ERR_CODE.getMessage());
+//        }else{
+            obj.put("status", ErrorStatusEunm.SUCCESS_CODE.getValue());
+            obj.put("msg",ErrorStatusEunm.SUCCESS_CODE.getMessage());
+//        }
+        return obj;
+    }
+
+
+
+    @PostMapping("/login")
+    @ResponseBody
+    public String appLogin(HttpServletRequest request, HttpServletResponse response, SysUser sysUser){
+        SysUser user = loginService.login(sysUser);
+        if(user != null){
+            return ResultUtil.getJsonResult(ErrorStatusEunm.SUCCESS_CODE.getValue(),ErrorStatusEunm.SUCCESS_CODE.getMessage());
+        }else{
+            return ResultUtil.getJsonResult(ErrorStatusEunm.requestRefuse.getValue(),ErrorStatusEunm.requestParameter.getMessage());
+
+        }
+
+
+    }
+
+
+}

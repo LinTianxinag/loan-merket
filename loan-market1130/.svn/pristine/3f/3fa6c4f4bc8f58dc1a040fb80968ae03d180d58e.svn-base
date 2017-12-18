@@ -1,0 +1,39 @@
+package com.fuhui.controller;
+
+import com.fuhui.common.entity.QueryCondition;
+import com.fuhui.service.ManLoginService;
+import com.fuhui.service.ManUserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * @author : Ren
+ * @Description:后台管理——用户管理
+ * @Date: create in 16:25 2017/12/4
+ * @Modified By:
+ */
+@Controller
+public class ManUserController {
+    @Autowired
+    private ManUserService manUserService;
+
+    /**
+     * 用户的列表的展示页面
+     * @param req
+     * @param res
+     * @param queryCondition
+     * @return
+     */
+    @RequestMapping("/userlist")
+    public ModelAndView ManangeUserList(HttpServletRequest req,HttpServletResponse res, QueryCondition queryCondition){
+        ModelAndView model=new ModelAndView("userlist");
+        manUserService.getFhUserList(req,model,queryCondition);
+        return model;
+    }
+
+}

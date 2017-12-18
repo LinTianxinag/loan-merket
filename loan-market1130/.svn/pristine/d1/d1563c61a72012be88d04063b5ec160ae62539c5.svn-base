@@ -1,0 +1,95 @@
+package com.fuhui.controller;
+
+import com.alibaba.fastjson.JSONObject;
+import com.fuhui.common.entity.QueryCondition;
+import com.fuhui.common.util.ResultUtil;
+import com.fuhui.service.ManLoginService;
+import com.fuhui.service.ManUserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.text.ParseException;
+
+/**
+ * @author : Ren
+ * @Description:后台管理——用户管理
+ * @Date: create in 16:25 2017/12/4
+ * @Modified By:
+ */
+@Controller
+public class ManUserController {
+    @Autowired
+    private ManUserService manUserService;
+
+    /**
+     * 用户的列表的展示页面
+     * @param req
+     * @param res
+     * @param queryCondition
+     * @return
+     */
+    @RequestMapping("/userlist")
+    public ModelAndView ManangeUserList(HttpServletRequest req,HttpServletResponse res, QueryCondition queryCondition) throws ParseException {
+        ModelAndView model=new ModelAndView("userlist");
+        manUserService.getFhUserList(req,model,queryCondition);
+        return model;
+    }
+
+    /**
+     * 用户的列表的展示页面(条件筛选查询)
+     * @param req
+     * @param res
+     * @param queryCondition
+     * @return
+     */
+    @RequestMapping("/finduserlist")
+    @ResponseBody
+    public Object FindManangeUserList(HttpServletRequest req,HttpServletResponse res, QueryCondition queryCondition) throws ParseException {
+        ModelAndView model = new ModelAndView();
+        JSONObject obj = new JSONObject();
+        manUserService.getFhUserList(req,model,queryCondition);
+        obj.put("total",model.getModel().get("total"));
+        obj.put("list",model.getModel().get("list"));
+        obj.put("page",model.getModel().get("page"));
+        return obj;
+    }
+    /**
+     * 用户的平台浏览记录的展示页面
+     * @param req
+     * @param res
+     * @param queryCondition
+     * @return
+     */
+    @RequestMapping("/userdetails")
+    public ModelAndView ManangeUserDetails(HttpServletRequest req,HttpServletResponse res, QueryCondition queryCondition) throws ParseException {
+        ModelAndView model=new ModelAndView("userdetails");
+        manUserService.getFhUserBrowseDetailsList(req,model,queryCondition);
+        return model;
+    }
+
+    /**
+     * 用户的平台浏览记录的展示页面(条件筛选查询)
+     * @param req
+     * @param res
+     * @param queryCondition
+     * @return
+     */
+    @RequestMapping("/finduserdetails")
+    @ResponseBody
+    public Object FindManangeUserDetails(HttpServletRequest req,HttpServletResponse res, QueryCondition queryCondition) throws ParseException {
+        ModelAndView model = new ModelAndView();
+        JSONObject obj = new JSONObject();
+        manUserService.getFhUserBrowseDetailsList(req,model,queryCondition);
+        obj.put("total",model.getModel().get("total"));
+        obj.put("list",model.getModel().get("list"));
+        obj.put("page",model.getModel().get("page"));
+        obj.put("user",model.getModel().get("user"));
+        return obj;
+    }
+
+}

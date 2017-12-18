@@ -1,0 +1,16 @@
+package com.fuhui.service;
+
+
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * Created by Ren
+ * time:2017/12/1.16:00
+ * 登录、注册、忘记密码
+ */
+public interface LoginService {
+
+    String checkRegist(HttpServletRequest request,String mobile, String password, String code);
+
+
+}

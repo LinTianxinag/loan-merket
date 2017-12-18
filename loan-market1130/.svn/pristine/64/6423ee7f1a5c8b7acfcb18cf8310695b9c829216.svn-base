@@ -1,0 +1,13 @@
+package com.fuhui.service;
+
+
+/**
+ * Created by Ren
+ * time:2017/12/1.16:00
+ * 登录、注册、忘记密码
+ */
+public interface LoginService {
+
+
+
+}
